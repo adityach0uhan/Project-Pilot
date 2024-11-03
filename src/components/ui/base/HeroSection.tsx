@@ -68,7 +68,7 @@ const HeroSection = () => {
                 Features
             </h1>
 
-            <div className=' w-full flex-wrap p-3 items-center justify-center flex gap-6 flex-col md:flex-row h-56 bg-white'>
+            <div className=' w-full flex-wrap p-3 items-center justify-center flex gap-6 flex-col md:flex-row min-h-56 bg-white'>
                 {Features.map((feature, index) => (
                     <div
                         key={index}

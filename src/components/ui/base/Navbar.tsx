@@ -7,6 +7,7 @@ import {
     SheetTitle,
     SheetTrigger
 } from '@/components/ui/sheet';
+import Image from 'next/image';
 
 const Navbar = () => {
     return (
@@ -22,7 +23,14 @@ const Navbar = () => {
             </div>
             <div className='md:hidden text-right'>
                 <Sheet>
-                    <SheetTrigger>Open</SheetTrigger>
+                    <SheetTrigger>
+                        <Image
+                            src={'/hamburger.svg'}
+                            height={40}
+                            width={40}
+                            alt='Menu'
+                        />
+                    </SheetTrigger>
                     <SheetContent>
                         <SheetHeader>
                             <SheetTitle className='my-6 text-2xl'>

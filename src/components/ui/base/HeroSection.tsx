@@ -4,38 +4,38 @@ import Link from 'next/link';
 const HeroSection = () => {
     const Features = [
         {
-            icon: '',
+            icon: '/Features/team.svg',
             title: 'Team Creation & Management',
             description:
                 'Students can create teams, invite members, or join via an invite code.'
         },
         {
-            icon: '',
+            icon: '/Features/project.svg',
             title: 'Project Creation & Management',
             description:
                 'Students can create projects, assign tasks, and track progress.'
         },
         {
-            icon: '',
+            icon: '/Features/task.svg',
             title: 'Task Creation & Management',
             description:
                 'Students can create tasks, assign them to team members, and track progress.'
         },
         {
-            icon: '',
+            icon: '/Features/file.svg',
             title: 'File Upload & Management',
             description:
                 'Students can upload files and share them with team members.'
         },
 
         {
-            icon: '',
+            icon: '/Features/dashboard.svg',
             title: 'Teacher Dashboard',
             description:
                 'Teachers can view all student projects, tasks, and progress.'
         },
         {
-            icon: '',
+            icon: '/Features/dashboard.svg',
             title: 'Student Dashboard',
             description:
                 'Students can view their projects, tasks, and progress.'
@@ -73,10 +73,15 @@ const HeroSection = () => {
                     <div
                         key={index}
                         className='md:w-80 w-full rounded-md h-36 flex flex-col   p-3 bg-slate-100 '>
-                        <p className='my-2 flex items-center gap-4 '>
-                            {feature.icon}
+                        <h1 className='my-2 flex items-center gap-4 '>
+                            <Image
+                                src={feature.icon}
+                                alt='feature icon'
+                                width={20}
+                                height={20}
+                            />
                             {feature.title}
-                        </p>
+                        </h1>
                         <hr className='border-black mb-5' />
                         <p className='text-sm'>{feature.description}</p>
                     </div>

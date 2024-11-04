@@ -57,10 +57,14 @@ const HeroSection = () => {
                 <p> A student project manager tool for teacher </p>
                 <span className='flex gap-3'>
                     <Link href='/signup'>
-                        <Button variant={'outline'}>Signup</Button>
+                        <Button className='bg-[#3C71E2]' variant={'outline'}>
+                            Signup
+                        </Button>
                     </Link>
                     <Link href='/login'>
-                        <Button variant={'outline'}>Login</Button>
+                        <Button className='bg-[#3C71E2]' variant={'outline'}>
+                            Login
+                        </Button>
                     </Link>
                 </span>
             </div>

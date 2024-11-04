@@ -29,10 +29,15 @@ export default function RootLayout({
         <html lang='en'>
             <body
                 suppressHydrationWarning
-                className={` bg-slate-50 ${geistSans.variable} ${geistMono.variable} antialiased `}>
-                <Navbar />
+                className={` bg-slate-50 ${geistSans.variable} ${geistMono.variable} antialiased min-h-screen relative`}>
+                <div className='absolute top-0'>
+                    <Navbar />
+                </div>
+
                 {children}
-                <Footer />
+                <div className='absolute bottom-0'>
+                    <Footer />
+                </div>
             </body>
         </html>
     );

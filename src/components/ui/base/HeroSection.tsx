@@ -56,13 +56,17 @@ const HeroSection = () => {
                 </h1>
                 <p> A student project manager tool for teacher </p>
                 <span className='flex gap-3'>
-                    <Link href='/signup'>
-                        <Button className='bg-[#3C71E2]' variant={'outline'}>
-                            Signup
+                    <Link href='/register'>
+                        <Button
+                            className='w-28 bg-[#3C71E2]'
+                            variant={'outline'}>
+                            Register
                         </Button>
                     </Link>
                     <Link href='/login'>
-                        <Button className='bg-[#3C71E2]' variant={'outline'}>
+                        <Button
+                            className='w-28 bg-[#3C71E2]'
+                            variant={'outline'}>
                             Login
                         </Button>
                     </Link>

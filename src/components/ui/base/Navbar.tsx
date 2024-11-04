@@ -8,6 +8,7 @@ import {
     SheetTrigger
 } from '@/components/ui/sheet';
 import Image from 'next/image';
+import Footer from './Footer';
 
 const Navbar = () => {
     return (
@@ -31,7 +32,7 @@ const Navbar = () => {
                             alt='Menu'
                         />
                     </SheetTrigger>
-                    <SheetContent>
+                    <SheetContent side={'left'}>
                         <SheetHeader>
                             <SheetTitle className='my-6 text-2xl'>
                                 Student Project Manager
@@ -55,7 +56,7 @@ const Navbar = () => {
                                             Register
                                         </Link>
                                     </span>
-                                    <span>faslkjlkf</span>
+                                    <span>{/* <Footer /> */}</span>
                                 </span>
                             </SheetDescription>
                         </SheetHeader>

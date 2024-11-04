@@ -10,7 +10,7 @@ const HeroSection = () => {
                 'Students can create teams, invite members, or join via an invite code.'
         },
         {
-            icon: '/Features/project.svg',
+            icon: '/Features/manage.svg',
             title: 'Project Creation & Management',
             description:
                 'Students can create projects, assign tasks, and track progress.'

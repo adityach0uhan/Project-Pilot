@@ -11,12 +11,22 @@ import Image from 'next/image';
 import Footer from './Footer';
 
 const Navbar = () => {
+    const imageStyle: any = {
+        scale: 2.5,
+        objectFit: 'contain'
+    };
     return (
-        <div className='w-screen h-16 flex items-center justify-between md:px-8 px-2 py-1 bg-white'>
-            <div className='md:block hidden text-2xl hover:cursor-pointer'>
-                Student Project Manager
+        <div className='w-screen h-16 flex items-center justify-between md:px-8 px-2 py-1  bg-white overflow-hidden'>
+            <div className='flex items-center hover:cursor-pointer'>
+                <Image
+                    className='ml-20 mt-5'
+                    height={50}
+                    width={120}
+                    style={imageStyle}
+                    alt='SPM'
+                    src={'/LOGO.gif'}
+                />
             </div>
-            <div className='md:hidden text-2xl hover:cursor-pointer'>S-P-M</div>
             <div className='md:flex hidden  items-center gap-3 text-lg hover:cursor-pointer'>
                 <Link href='/'>Home</Link>
                 <Link href='/login'>Login</Link>

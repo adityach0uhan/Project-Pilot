@@ -29,14 +29,10 @@ export default function RootLayout({
         <html lang='en'>
             <body
                 suppressHydrationWarning
-                className={` bg-slate-50 ${geistSans.variable} ${geistMono.variable} antialiased min-h-screen relative`}>
-                <div className='absolute top-0'>
-                    <Navbar />
-                </div>
-                <main className='mt-16'>{children}</main>
-                <div className='absolute bottom-0'>
-                    <Footer />
-                </div>
+                className={` bg-slate-50 ${geistSans.variable} ${geistMono.variable} antialiased  flex flex-col `}>
+                <Navbar />
+                {children}
+                <Footer />
             </body>
         </html>
     );

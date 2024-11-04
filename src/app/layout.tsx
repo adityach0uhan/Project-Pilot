@@ -33,8 +33,7 @@ export default function RootLayout({
                 <div className='absolute top-0'>
                     <Navbar />
                 </div>
-
-                {children}
+                <main className='mt-16'>{children}</main>
                 <div className='absolute bottom-0'>
                     <Footer />
                 </div>

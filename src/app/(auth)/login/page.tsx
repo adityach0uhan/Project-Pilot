@@ -6,7 +6,7 @@ import React from 'react';
 
 const page = () => {
     return (
-        <div className='w-screen flex items-center justify-center p-2 m-2'>
+        <div className='w-screen min-h-screen flex items-center justify-center p-2 '>
             <div className='flex flex-col items-center rounded-xl md:p-6 justify- shadow-2xl bg-white  md:min-w-96 min-w-full p-2 gap-6'>
                 <h1 className='w-full text-center text-2xl'>Login</h1>
                 <div className='flex flex-col gap-2 items-center justify-start w-full'>

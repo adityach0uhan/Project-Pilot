@@ -18,14 +18,14 @@ const HeroSection = () => {
                 </h1>
                 <p> A student project manager tool for teacher </p>
                 <span className='flex gap-3'>
-                    <Link href='/register'>
+                    <Link href='/auth/register'>
                         <Button
                             className='w-28 text-white bg-[#3C71E2]'
                             variant={'outline'}>
                             Register
                         </Button>
                     </Link>
-                    <Link href='/login'>
+                    <Link href='/auth/login'>
                         <Button
                             className='w-28 text-white bg-[#3C71E2]'
                             variant={'outline'}>

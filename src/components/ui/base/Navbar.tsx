@@ -26,8 +26,8 @@ const Navbar = () => {
             </div>
             <div className='md:flex hidden  items-center gap-3 text-lg hover:cursor-pointer'>
                 <Link href='/'>Home</Link>
-                <Link href='/login'>Login</Link>
-                <Link href='/register'>Register</Link>
+                <Link href='/auth/login'>Login</Link>
+                <Link href='/auth/register'>Register</Link>
             </div>
             <div className='md:hidden text-right'>
                 <Sheet>
@@ -54,12 +54,12 @@ const Navbar = () => {
                                         </Link>
                                         <Link
                                             className='text-start  w-full'
-                                            href='/login'>
+                                            href='/auth/login'>
                                             Login
                                         </Link>
                                         <Link
                                             className='text-start  w-full'
-                                            href='/register'>
+                                            href='/auth/register'>
                                             Register
                                         </Link>
                                     </span>

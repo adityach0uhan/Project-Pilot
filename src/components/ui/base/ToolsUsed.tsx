@@ -4,7 +4,7 @@ const ToolsUsed = () => {
     return (
         <div className='w-full flex md:flex-row flex-col gap-3 items-center justify-center '>
             <div className=' flex justify-center flex-col bg-white p-4 items-center rounded-lg md:w-1/2 w-full'>
-                <h1 className=' w-full text-center text-xl my-3'>Frontend</h1>
+                <h1 className=' w-full text-center text-xl mb-3'>Frontend</h1>
                 <ul className=' flex flex-wrap gap-6 items-start justify-center'>
                     <li className='flex items-center'>
                         <Image
@@ -58,7 +58,7 @@ const ToolsUsed = () => {
             </div>
             <div className=' flex justify-center flex-col bg-white p-4 items-center rounded-lg md:w-1/2 w-full'>
                 {' '}
-                <h1 className=' w-full text-center text-xl my-3'>Backend</h1>
+                <h1 className=' w-full text-center text-xl mb-3'>Backend</h1>
                 <ul className=' flex flex-wrap gap-6 items-start justify-center'>
                     <li className='flex items-center'>
                         <Image

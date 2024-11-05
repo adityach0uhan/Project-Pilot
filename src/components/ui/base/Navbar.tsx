@@ -8,10 +8,11 @@ import {
     SheetTrigger
 } from '@/components/ui/sheet';
 import Image from 'next/image';
+import Footer from './Footer';
 
 const Navbar = () => {
     return (
-        <div className='w-screen h-16 flex items-center justify-between md:px-8 px-2 py-1  bg-white overflow-hidden'>
+        <div className='w-screen h-16 flex items-center justify-between md:px-8 px-2 py-1  bg-white overflow-hidden border-b-2'>
             <div className='md:flex items-center hover:cursor-pointer'>
                 <Image
                     className='mt-6'
@@ -62,7 +63,7 @@ const Navbar = () => {
                                             Register
                                         </Link>
                                     </span>
-                                    <span>{/* <Footer /> */}</span>
+                                    <Footer />
                                 </span>
                             </SheetDescription>
                         </SheetHeader>

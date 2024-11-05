@@ -1,52 +1,69 @@
 import { Button } from '@/components/ui/button';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle
+} from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import Link from 'next/link';
-import React from 'react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-const page = () => {
+export default function page() {
     return (
-        <div className='w-screen min-h-screen flex items-center justify-center p-2 '>
-            <div className='flex flex-col items-center rounded-xl md:p-6 justify- shadow-2xl bg-white  md:min-w-96 min-w-full p-2 gap-6'>
-                <h1 className='w-full text-center text-2xl'>Login</h1>
-                <div className='flex flex-col gap-2 items-center justify-start w-full'>
-                    <Label className='w-full  text-start' htmlFor='email'>
-                        Email
-                    </Label>
-                    <Input
-                        className='w-full  text-start'
-                        type='email'
-                        id='email'
-                    />
-                </div>
-                <div className='flex flex-col gap-2 items-center justify-start w-full'>
-                    <Label className='w-full  text-start' htmlFor='password'>
-                        Password
-                    </Label>
-                    <Input
-                        className='w-full  text-start'
-                        type='password'
-                        id='password'
-                    />
-                </div>
-                <div className='flex flex-col  items-center justify-start w-full'>
-                    <Button className='w-full bg-black'>Login</Button>{' '}
-                    <div className='p-1 mt-2 text-sm flex flex- gap-7  w-full items-center justify-between'>
-                        <Link
-                            className=' text-blue-700  text-start'
-                            href={'/forgot-password'}>
-                            forgot-password...?
-                        </Link>
-                        <Link
-                            className=' text-blue-700  text-start'
-                            href='/register'>
-                            new ? register here
-                        </Link>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Tabs defaultValue='student' className='w-[400px] m-auto mt-6'>
+            <TabsList className='grid w-full grid-cols-2'>
+                <TabsTrigger value='student'>Student </TabsTrigger>
+                <TabsTrigger value='teacher'>Teacher </TabsTrigger>
+            </TabsList>
+            <TabsContent value='student'>
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Student Login</CardTitle>
+                        <CardDescription>
+                            Login with your student credentials.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className='space-y-2'>
+                        <div className='space-y-1'>
+                            <Label htmlFor='student-email'>Email</Label>
+                            <Input id='student-email' type='email' />
+                        </div>
+                        <div className='space-y-1'>
+                            <Label htmlFor='student-password'>Password</Label>
+                            <Input id='student-password' />
+                        </div>
+                    </CardContent>
+                    <CardFooter>
+                        <Button>Login</Button>
+                    </CardFooter>
+                </Card>
+            </TabsContent>
+            <TabsContent value='teacher'>
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Teacher Login</CardTitle>
+                        <CardDescription>
+                            Do not attempt to login if you are not a teacher.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className='space-y-2'>
+                        <div className='space-y-1'>
+                            <Label htmlFor='teacher-email'>Email</Label>
+                            <Input id='teacher-email' type='email' />
+                        </div>
+                        <div className='space-y-1'>
+                            <Label htmlFor='teacher-password'>Password</Label>
+                            <Input id='teacher-password' type='password' />
+                        </div>
+                    </CardContent>
+                    <CardFooter>
+                        <Button>Login</Button>
+                    </CardFooter>
+                </Card>
+            </TabsContent>
+        </Tabs>
     );
-};
-
-export default page;
+}

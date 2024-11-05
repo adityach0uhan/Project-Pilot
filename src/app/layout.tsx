@@ -29,7 +29,7 @@ export default function RootLayout({
         <html lang='en'>
             <body
                 suppressHydrationWarning
-                className={`bg-slate-50 ${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
+                className={`bg-slate-50 ${geistSans.variable} ${geistMono.variable} antialiased flex flex-col items-center justify-between min-h-screen`}>
                 <Navbar />
                 <main className='flex-grow'>{children}</main>
                 <Footer />

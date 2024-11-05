@@ -3,7 +3,7 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <span className='w-full mt-10    p-2 py-4  flex items-center justify-center h-16 gap-6 bg-white border-t-2'>
+        <span className='w-full mt-6 bottom-0 p-2 py-4  flex items-center justify-center h-16 gap-6 bg-white border-t-2'>
             <a href='https://github.com/adityach0uhan'>
                 <Image src='/github.svg' alt='github' width={25} height={25} />
             </a>

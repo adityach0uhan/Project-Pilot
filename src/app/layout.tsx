@@ -29,9 +29,9 @@ export default function RootLayout({
         <html lang='en'>
             <body
                 suppressHydrationWarning
-                className={` bg-slate-50 ${geistSans.variable} ${geistMono.variable} antialiased  flex flex-col `}>
+                className={`bg-slate-50 ${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
                 <Navbar />
-                {children}
+                <main className='flex-grow'>{children}</main>
                 <Footer />
             </body>
         </html>

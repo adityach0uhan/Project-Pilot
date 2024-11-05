@@ -13,7 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export default function page() {
     return (
-        <Tabs defaultValue='student' className='w-[400px] m-auto mt-6'>
+        <Tabs defaultValue='student' className='w-[400px] my-auto mx-2 mt-6'>
             <TabsList className='grid w-full grid-cols-2'>
                 <TabsTrigger value='student'>Student </TabsTrigger>
                 <TabsTrigger value='teacher'>Teacher </TabsTrigger>

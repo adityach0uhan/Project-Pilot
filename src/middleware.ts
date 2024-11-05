@@ -2,7 +2,8 @@ import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 import jwt from 'jsonwebtoken';
 export async function middleware(request: NextRequest) {
-    const token = await request.cookies.get('token')?.value;
+    const token = await request.cookies.get('student_project_manager_token')
+        ?.value;
     const decodeToken = (await jwt.decode(token!)) as { role?: string };
     const currentPath = request.nextUrl.pathname;
     const hidePathForAlreadyLoggedInUser =
@@ -20,9 +21,9 @@ export async function middleware(request: NextRequest) {
             }
         }
     } else {
-        if (!token) {
-            return NextResponse.redirect(new URL('/auth/login', request.url));
-        }
+        // if (!token) {
+        //     return NextResponse.redirect(new URL('/auth/login', request.url));
+        // }
     }
     return NextResponse.next();
 }

@@ -1,31 +1,48 @@
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 import jwt from 'jsonwebtoken';
+import { verifyToken } from './helpers/verifyToken';
+
 export async function middleware(request: NextRequest) {
-    const token = await request.cookies.get('student_project_manager_token')
-        ?.value;
-    const decodeToken = (await jwt.decode(token!)) as { role?: string };
+    const token = request.cookies.get('student_project_manager_token')?.value;
+    const decodedToken = await verifyToken(token!);
+    console.log('decoded token from middleware file', decodedToken);
     const currentPath = request.nextUrl.pathname;
-    const hidePathForAlreadyLoggedInUser =
-        currentPath === '/auth/login' || currentPath === '/auth/resgister';
+
+    const protectedPaths = currentPath.includes('/dashboard');
+    const hidePathForAlreadyLoggedInUser = currentPath.includes('/auth');
+
+    // Redirect to login page if token is not present
+    if (!token && protectedPaths) {
+        return NextResponse.redirect(new URL('/auth/login', request.url));
+    }
+    // Redirect to dashboard according to role
+    if (token && protectedPaths) {
+        if (decodedToken.role === 'teacher') {
+            return NextResponse.redirect(
+                new URL('/dashboard/teacher', request.url)
+            );
+        } else if (decodedToken.role === 'student') {
+            return NextResponse.redirect(
+                new URL('/dashboard/student', request.url)
+            );
+        }
+    }
+
+    // Hide path for already logged in user
     if (hidePathForAlreadyLoggedInUser) {
-        if (token && decodeToken) {
-            if (decodeToken.role === 'teacher') {
+        if (token) {
+            if (decodedToken.role === 'teacher') {
                 return NextResponse.redirect(
                     new URL('/dashboard/teacher', request.url)
                 );
-            } else if (decodeToken.role === 'student') {
+            } else if (decodedToken.role === 'student') {
                 return NextResponse.redirect(
                     new URL('/dashboard/student', request.url)
                 );
             }
         }
-    } else {
-        // if (!token) {
-        //     return NextResponse.redirect(new URL('/auth/login', request.url));
-        // }
     }
-    return NextResponse.next();
 }
 
 export const config = {

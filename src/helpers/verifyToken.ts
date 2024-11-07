@@ -1,10 +1,13 @@
 import axios from 'axios';
 
-export const verifyToken = async (token: string) => {
+export const verifyToken = async () => {
+    console.log('verify token function called');
     try {
-        console.log('PUblic endpoint', process.env.NEXT_PUBLIC_API_ENDPOINT);
         const response = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_ENDPOINT}/token/verify`
+            `${process.env.NEXT_PUBLIC_API_ENDPOINT}/token/verify`,
+            {
+                withCredentials: true
+            }
         );
         console.log('verify token function response', response);
         return response.data;

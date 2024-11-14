@@ -12,6 +12,7 @@ const HeroSection = () => {
                     alt='Student Project Manager '
                     width={370}
                     height={370}
+                    priority={true}
                 />
                 <h1 className='md:text-4xl text-2xl'>
                     Student Project Manager

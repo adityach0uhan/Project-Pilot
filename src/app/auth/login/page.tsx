@@ -61,7 +61,8 @@ export default function page() {
     };
 
     const handelTeacherLogin: any = async (): Promise<void> => {
-        const apiEndpoint = process.env.NEXT_PUBLIC_API_ENDPOINT || '';
+        const apiEndpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
+        console.log('API endpoint:', apiEndpoint);
         try {
             setLoading(true);
             const response = await axios.post(

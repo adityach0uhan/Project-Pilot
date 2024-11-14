@@ -32,12 +32,12 @@ const page = () => {
     };
 
     return (
-        <div className='w-screen min-h-screen flex flex-col  justify-center p-2'>
-            <h1 className='w-full text-center text-3xl my-3'>
-                Student Registration{' '}
+        <div className='w-screen min-h-auto flex bg-white flex-col items-center  justify-center p-2'>
+            <h1 className='  w-full text-center text-3xl my-3'>
+                Student Registration
             </h1>
             <form
-                className='w-full p-2 md:mx-10 py-8 bg-white shadow-2xl rounded-2xl  justify-center flex gap-8 h-full items-start flex-wrap'
+                className='w-auto py-2  shadow-2xl rounded-2xl  justify-center flex gap-y-2 gap-x-6  h-full items-start flex-wrap '
                 onSubmit={handleSubmit(registerUser)}>
                 <div className='w-72 h-20 flex justify-evenly flex-col'>
                     <Label htmlFor='name'>Name</Label>
@@ -119,14 +119,18 @@ const page = () => {
                         type='submit'
                         className='bg-[#3C71E2] w-full text-black hover:bg-[#98b3ee]'
                         variant={'secondary'}>
-                        Register
+                        Register as Student
                     </Button>
+                    <p className='text-sm  text-red-600'></p>
                 </div>
                 <div className='w-72 h-20 flex justify-evenly flex-col'>
                     <Label htmlFor=''> Already have an account? </Label>
-                    <Button className='text-sm text-[#3C71E2]' variant={'link'}>
-                        click here to go to Login
+                    <Button
+                        className=' border-2 text-sm text-[#3C71E2]'
+                        variant={'link'}>
+                        Login here
                     </Button>
+                    <p className='text-sm  text-red-600'></p>
                 </div>
             </form>
         </div>

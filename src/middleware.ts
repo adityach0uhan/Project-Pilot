@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 import jwt from 'jsonwebtoken';
-import { cookies } from 'next/headers';
 
 export async function middleware(request: NextRequest) {
     const token = await request.cookies.get('student_project_manager_token')

@@ -9,7 +9,7 @@ const Error404 = () => {
         <div className='w-screen flex-col h-96 flex items-center justify-center'>
             <Image
                 alt='404 Page not found!!! '
-                src={'/404.svg'}
+                src={'/404duck.svg'}
                 width={400}
                 height={400}
             />

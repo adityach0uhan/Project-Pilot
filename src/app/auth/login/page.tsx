@@ -118,7 +118,7 @@ export default function page() {
                 />
                 <Tabs
                     defaultValue='student'
-                    className='w-[350px] my-auto mx-2 mt-4  md:mt-20'>
+                    className='w-[350px] my-auto mx-2   md:mt-20'>
                     <TabsList className='grid w-full grid-cols-2 '>
                         <TabsTrigger value='student'>Student </TabsTrigger>
                         <TabsTrigger value='teacher'>Teacher </TabsTrigger>

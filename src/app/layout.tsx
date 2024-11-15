@@ -16,8 +16,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-    title: 'Student Project Manager',
-    description: 'A project management tool for students'
+    title: 'Project Pilot',
+    description: 'Project Pilot is a platform for students and teachers '
 };
 
 export default function RootLayout({

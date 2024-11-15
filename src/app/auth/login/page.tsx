@@ -99,10 +99,18 @@ export default function page() {
 
     return (
         <>
-            <div className='flex w-full md:flex-row flex-col items-center justify-evenly'>
+            <div className='flex md:mt-1 w-full my-auto md:gap-20 md:flex-row flex-col items-center justify-evenly gap-2 '>
                 <Image
+                    className='block md:hidden'
+                    height={250}
+                    width={250}
+                    src={'/login1.svg'}
+                    alt='Image'
+                />
+                <Image
+                    className='hidden md:block'
                     height={400}
-                    width={400}
+                    width={450}
                     src={'/login1.svg'}
                     alt='Image'
                 />

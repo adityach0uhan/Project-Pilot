@@ -14,7 +14,7 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
-import { set } from 'zod';
+import { InputOTP, InputOTPSlot } from '@/components/ui/input-otp';
 
 export default function page() {
     const router = useRouter();
@@ -98,13 +98,13 @@ export default function page() {
     return (
         <Tabs
             defaultValue='student'
-            className='w-[400px] my-auto mx-4 md:mt-6 mt-20'>
+            className='w-[350px] my-auto mx-2 md:mt-6 mt-20'>
             <TabsList className='grid w-full grid-cols-2'>
                 <TabsTrigger value='student'>Student </TabsTrigger>
                 <TabsTrigger value='teacher'>Teacher </TabsTrigger>
             </TabsList>
             <TabsContent value='student'>
-                <Card>
+                <Card className='h-80'>
                     <CardHeader>
                         <CardTitle>Student Login</CardTitle>
                         <CardDescription>
@@ -140,21 +140,29 @@ export default function page() {
                             onClick={handleStudentLogin}
                             aria-label='Login'
                             disabled={loading}>
-                            {loading ? 'Wait...' : 'Login Kar'}
+                            {loading ? 'Wait...' : 'Login '}
                         </Button>
                     </CardFooter>
                 </Card>
             </TabsContent>
             <TabsContent value='teacher'>
-                <Card>
+                <Card className='h-80'>
                     <CardHeader>
                         <CardTitle>Teacher Login</CardTitle>
                         <CardDescription>
-                            Do not attempt to login if you are not a teacher.
+                            Enter the teacher Secret Code
+                            <InputOTP maxLength={6}>
+                                <InputOTPSlot index={0} />
+                                <InputOTPSlot index={1} />
+                                <InputOTPSlot index={2} />
+                                <InputOTPSlot index={3} />
+                                <InputOTPSlot index={4} />
+                                <InputOTPSlot index={5} />
+                            </InputOTP>
                         </CardDescription>
                     </CardHeader>
-                    <CardContent className='space-y-2'>
-                        <div className='space-y-1'>
+                    <CardContent className=''>
+                        <div className=''>
                             <Label htmlFor='teacher-email'>Email</Label>
                             <Input
                                 value={teacherEmail}
@@ -165,7 +173,7 @@ export default function page() {
                                 type='email'
                             />
                         </div>
-                        <div className='space-y-1'>
+                        <div className=''>
                             <Label htmlFor='teacher-password'>Password</Label>
                             <Input
                                 id='teacher-password'

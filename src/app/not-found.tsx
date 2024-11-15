@@ -6,8 +6,9 @@ import { ChevronLeftIcon } from '@radix-ui/react-icons';
 
 const Error404 = () => {
     return (
-        <div className='w-screen flex-col h-96 flex items-center justify-center'>
+        <div className='w-screen flex-col max-h-96 flex items-center justify-center'>
             <Image
+                className='mt-10'
                 alt='404 Page not found!!! '
                 src={'/404duck.svg'}
                 width={400}

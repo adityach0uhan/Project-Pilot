@@ -25,6 +25,7 @@ export default function page() {
     const [teacherEmail, setTeacherEmail] = useState('');
     const [teacherPassword, setTeacherPassword] = useState('');
     const [loading, setLoading] = useState(false);
+    const [teacherSecret, setTeacherSecret] = useState('');
 
     const handleStudentLogin: any = async (): Promise<void> => {
         try {
@@ -64,6 +65,7 @@ export default function page() {
 
     const handelTeacherLogin: any = async (): Promise<void> => {
         const apiEndpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
+        const teacherSecret = process.env.NEXT_PUBLIC_TEACHER_SECRET;
         console.log('API endpoint:', apiEndpoint);
         try {
             setLoading(true);
@@ -99,7 +101,7 @@ export default function page() {
 
     return (
         <>
-            <div className='flex md:mt-1 w-full my-auto md:gap-20 md:flex-row flex-col items-center justify-evenly gap-2 '>
+            <div className='flex md:mt-1 w-full my-auto md:gap-20 md:flex-row flex-col items-center justify-evenly gap-0 '>
                 <Image
                     className='block md:hidden'
                     height={250}
@@ -116,7 +118,7 @@ export default function page() {
                 />
                 <Tabs
                     defaultValue='student'
-                    className='w-[350px] my-auto mx-2 md:mt-6 mt-20'>
+                    className='w-[350px] my-auto mx-2 mt-4  md:mt-20'>
                     <TabsList className='grid w-full grid-cols-2 '>
                         <TabsTrigger value='student'>Student </TabsTrigger>
                         <TabsTrigger value='teacher'>Teacher </TabsTrigger>

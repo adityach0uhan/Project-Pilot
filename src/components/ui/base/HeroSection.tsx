@@ -8,7 +8,7 @@ const HeroSection = () => {
         <div className='w-screen p-2 '>
             <div className='w-full flex items-center justify-center flex-col gap-2'>
                 <Image
-                    src='HeroSection.svg'
+                    src='/hero-sec-img.svg'
                     alt='Student Project Manager '
                     width={370}
                     height={370}

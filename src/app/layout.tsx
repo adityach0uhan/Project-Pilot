@@ -3,6 +3,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 import Navbar from '@/components/ui/base/Navbar';
 import Footer from '@/components/ui/base/Footer';
+import { Toaster } from '@/components/ui/sonner';
 
 const geistSans = localFont({
     src: './fonts/GeistVF.woff',
@@ -32,6 +33,7 @@ export default function RootLayout({
                 className={`bg-slate-50 ${geistSans.variable} ${geistMono.variable} antialiased flex flex-col items-center justify-between min-h-screen`}>
                 <Navbar />
                 <main className='flex-grow'>{children}</main>
+                <Toaster />
                 <Footer />
             </body>
         </html>

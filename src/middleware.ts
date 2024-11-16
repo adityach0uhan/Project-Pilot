@@ -6,6 +6,7 @@ export async function middleware(request: NextRequest) {
     const token = await request.cookies.get('student_project_manager_token')
         ?.value;
     const decodeToken = (await jwt.decode(token!)) as { role?: string };
+    console.log('decodeToken =====', decodeToken);
     const currentPath = request.nextUrl.pathname;
     const protectedPaths = currentPath.includes('/dashboard');
 

@@ -5,7 +5,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-
+import Link from 'next/link';
+import axios from 'axios';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 type Inputs = {
     name: string;
     profilePic: string;
@@ -19,6 +23,12 @@ type Inputs = {
     confirmPassword: string;
 };
 const page = () => {
+    const apiEndpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
+    const router = useRouter();
+
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+
     const {
         register,
         handleSubmit,
@@ -27,8 +37,33 @@ const page = () => {
     } = useForm<Inputs>({ resolver: zodResolver(studentSchema) });
 
     const registerUser = async (data: Inputs) => {
+        setLoading(true);
+        if (data.password !== data.confirmPassword) {
+            toast.error('Passwords do not match');
+            setLoading(false);
+            return;
+        }
         const { confirmPassword, ...userData } = data;
-        console.log(userData);
+        try {
+            const response = await axios.post(
+                `${apiEndpoint}/auth/student/register`,
+                userData
+            );
+            if (response.data.success) {
+                setLoading(false);
+                toast.success('Student registered successfully', {
+                    description: 'Login with your credentials'
+                });
+                router.push('/auth/login');
+            } else {
+                setLoading(false);
+                toast.error(response.data.message);
+            }
+        } catch (error) {
+            toast.error('Internal server error');
+            setLoading(false);
+            console.log(error);
+        }
     };
 
     return (
@@ -119,17 +154,19 @@ const page = () => {
                         type='submit'
                         className='bg-[#3C71E2] w-full text-black hover:bg-[#98b3ee]'
                         variant={'secondary'}>
-                        Register as Student
+                        {loading ? 'wait...' : 'Register'}
                     </Button>
                     <p className='text-sm  text-red-600'></p>
                 </div>
                 <div className='w-72 h-20 flex justify-evenly flex-col'>
                     <Label htmlFor=''> Already have an account? </Label>
-                    <Button
-                        className=' border-2 text-sm text-[#3C71E2]'
-                        variant={'link'}>
-                        Login here
-                    </Button>
+                    <Link href='/auth/login'>
+                        <Button
+                            className=' border-2 text-sm text-[#3C71E2]'
+                            variant={'link'}>
+                            Login
+                        </Button>
+                    </Link>
                     <p className='text-sm  text-red-600'></p>
                 </div>
             </form>

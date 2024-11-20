@@ -18,6 +18,8 @@ import { InputOTP, InputOTPSlot } from '@/components/ui/input-otp';
 import Link from 'next/link';
 import Image from 'next/image';
 import { toast } from 'sonner';
+import { useSelector, useDispatch } from 'react-redux';
+import { addCurrentUserData } from '@/lib/features/userDataSlice';
 
 export default function page() {
     const router = useRouter();
@@ -28,6 +30,8 @@ export default function page() {
     const [loading, setLoading] = useState(false);
     const [teacherSecret, setTeacherSecret] = useState('');
     const [secretError, setSecretError] = useState('');
+
+    const dispatch = useDispatch();
 
     const handleStudentLogin: any = async (): Promise<void> => {
         try {
@@ -43,6 +47,17 @@ export default function page() {
             );
 
             if (response.data.success && response.data.status == 200) {
+                dispatch(
+                    addCurrentUserData({
+                        _id: response.data.data._id,
+                        name: response.data.data.name,
+                        email: response.data.data.email,
+                        profilePic: response.data.data.profilePic,
+                        department: response.data.data.department,
+                        semester: response.data.data.semester,
+                        role: response.data.data.role
+                    })
+                );
                 toast.success('Login successful', {
                     position: 'bottom-center',
                     duration: 2000

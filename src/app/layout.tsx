@@ -1,19 +1,15 @@
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
+import { Montserrat } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/ui/base/Navbar';
 import Footer from '@/components/ui/base/Footer';
 import { Toaster } from '@/components/ui/sonner';
+import StoreProvider from './SoreProvider';
 
-const geistSans = localFont({
-    src: './fonts/GeistVF.woff',
-    variable: '--font-geist-sans',
-    weight: '100 900'
-});
-const geistMono = localFont({
-    src: './fonts/GeistMonoVF.woff',
-    variable: '--font-geist-mono',
-    weight: '100 900'
+const font = Montserrat({
+    weight: '400',
+    subsets: ['latin'],
+    display: 'swap'
 });
 
 export const metadata: Metadata = {
@@ -30,11 +26,13 @@ export default function RootLayout({
         <html lang='en'>
             <body
                 suppressHydrationWarning
-                className={`bg-slate-50 ${geistSans.variable} ${geistMono.variable} antialiased flex flex-col items-center justify-between min-h-screen`}>
-                <Navbar />
-                <main className='flex-grow'>{children}</main>
-                <Toaster />
-                <Footer />
+                className={`bg-slate-50 ${font.className}  antialiased flex flex-col items-center justify-between min-h-screen`}>
+                <StoreProvider>
+                    <Navbar />
+                    <main className='flex-grow'>{children}</main>
+                    <Toaster />
+                    <Footer />
+                </StoreProvider>
             </body>
         </html>
     );

@@ -5,7 +5,12 @@ import { useSelector } from 'react-redux';
 const page = () => {
     const user = useSelector((state: RootState) => state.user);
 
-    return <div>{user.name}</div>;
+    return (
+        <div>
+            HELLO
+            {user.name}
+        </div>
+    );
 };
 
 export default page;

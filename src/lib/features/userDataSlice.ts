@@ -22,7 +22,7 @@ const initialState: userSlice = {
 };
 
 export const userSlice = createSlice({
-    name: 'counter',
+    name: 'user',
     initialState,
     reducers: {
         addCurrentUserData: (state, action: PayloadAction<userSlice>) => {

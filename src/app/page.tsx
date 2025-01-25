@@ -1,3 +1,4 @@
+import Footer from '@/components/ui/base/Footer';
 import HeroSection from '@/components/ui/base/HeroSection';
 
 export default function Home() {
@@ -5,6 +6,7 @@ export default function Home() {
         <>
             <div className='w-screen min-h-screen '>
                 <HeroSection />
+                <Footer />
             </div>
         </>
     );

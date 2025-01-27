@@ -32,7 +32,7 @@ const Navbar = () => {
     const user = useSelector((state: RootState) => state.user);
 
     return (
-        <div className='w-screen h-16 flex items-center justify-between md:px-8 px-2 py-1  bg-white overflow-hidden border-b-2'>
+        <div className='w-screen h-16 flex items-center justify-between md:px-8 px-2 py-1  bg-white overflow-hidden border-b-[1px] border-zinc-200'>
             <div className='md:flex items-center hover:cursor-pointer'>
                 <Image
                     className='mt-6'

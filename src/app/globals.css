@@ -68,5 +68,6 @@
 body {
     overflow-x: hidden !important;
     min-width: 100vw !important;
+    background-color: white;
     min-height: 100vh !important;
 }

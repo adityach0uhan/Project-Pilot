@@ -8,6 +8,7 @@ import { RootState } from '@/lib/store';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { PlusCircledIcon } from '@radix-ui/react-icons';
+import JoinAndCreateTeam from './JoinAndCreateTeam';
 
 interface Member {
     _id: string;
@@ -93,21 +94,7 @@ const TeamInfo: React.FC = () => {
                     </div>
                 </div>
             ) : (
-                <div className='w-96 h-72 flex flex-col justify-evenly shadow-lg border-zinc-200 border-[1px] rounded-xl m-2 p-3'>
-                    <div className='flex flex-col gap-2'>
-                        Create a Group
-                        <Button className='w-36' variant={'default'}>
-                            New <PlusCircledIcon />
-                        </Button>
-                    </div>
-                    <div className='flex flex-col gap-2'>
-                        Join a Group
-                        <Input placeholder='Enter Group Code' />
-                        <Button className='w-36' variant={'default'}>
-                            Join
-                        </Button>
-                    </div>
-                </div>
+                <JoinAndCreateTeam />
             )}
         </>
     );

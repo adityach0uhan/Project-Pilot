@@ -9,6 +9,7 @@ import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { PlusCircledIcon } from '@radix-ui/react-icons';
 import JoinAndCreateTeam from './JoinAndCreateTeam';
+import PendingRequest from './PendingRequest';
 
 interface Member {
     _id: string;
@@ -27,6 +28,7 @@ interface GroupData {
     semester: number;
     groupleader: { _id: string; name: string };
     createdAt: string;
+    pendingRequests: any;
     updatedAt: string;
 }
 
@@ -47,7 +49,7 @@ const TeamInfo: React.FC = () => {
                 );
                 if (resp.data.success) {
                     setGroupData(resp.data.groupData);
-                    // setTeamExists(true);
+                    setTeamExists(true);
                 } else {
                     setTeamExists(false);
                 }
@@ -92,6 +94,7 @@ const TeamInfo: React.FC = () => {
                             </div>
                         ))}
                     </div>
+                    <PendingRequest groupData={groupData} />
                 </div>
             ) : (
                 <JoinAndCreateTeam />

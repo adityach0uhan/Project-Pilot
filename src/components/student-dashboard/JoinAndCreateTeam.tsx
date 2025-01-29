@@ -1,14 +1,38 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
 import { Input } from '../ui/input';
-import { PlusCircledIcon } from '@radix-ui/react-icons';
 import { Button } from '../ui/button';
 import { useState } from 'react';
 import CreateTeamDialog from './CreateTeamDialog';
+import axios from 'axios';
+import { toast } from 'sonner';
 type Props = {};
 
 const JoinAndCreateTeam = (props: Props) => {
     const user = useSelector((state: RootState) => state.user);
+    const [inviteCode, setInviteCode] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const handelInviteSubmit = async () => {
+        try {
+            if (inviteCode.length === 0 && inviteCode.length < 4) {
+                return;
+            }
+            setLoading(true);
+            const resp = await axios.post(
+                `http://localhost:4000/group/requesttojoin/${inviteCode}`,
+                { userId: user._id }
+            );
+            setInviteCode('');
+            toast.message(resp.data.message);
+        } catch (error) {
+            setInviteCode('');
+            toast.error('Something went wrong');
+        } finally {
+            setInviteCode('');
+            setLoading(false);
+        }
+    };
 
     return (
         <div>
@@ -19,9 +43,15 @@ const JoinAndCreateTeam = (props: Props) => {
                 </div>
                 <div className='flex flex-col gap-2'>
                     Join a Group
-                    <Input placeholder='Enter Group Code' />
-                    <Button className='w-36' variant={'default'}>
-                        Join
+                    <Input
+                        onChange={(e) => setInviteCode(e.target.value)}
+                        placeholder='Enter Group Code'
+                    />
+                    <Button
+                        onClick={handelInviteSubmit}
+                        className='w-36'
+                        variant={'default'}>
+                        {loading ? 'Loading...' : 'Join Group'}
                     </Button>
                 </div>
             </div>

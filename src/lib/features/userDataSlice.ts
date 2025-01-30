@@ -9,16 +9,31 @@ export interface userSlice {
     department: string;
     semester: number;
     role: string;
+    branch: string;
+    classRollNumber: string;
+    gender: string;
+    section: string;
+    collegeId: string;
+    teacherId: string;
+    designation: string;
+    isHOD: boolean;
 }
-
 const initialState: userSlice = {
     _id: '',
     name: '',
     email: '',
     profilePic: '',
     role: '',
+    branch: '',
     department: '',
-    semester: 0
+    semester: 0,
+    classRollNumber: '',
+    section: '',
+    collegeId: '',
+    gender: '',
+    isHOD: false,
+    designation: '',
+    teacherId: ''
 };
 
 export const userSlice = createSlice({
@@ -33,6 +48,14 @@ export const userSlice = createSlice({
             state.department = action.payload.department;
             state.semester = action.payload.semester;
             state.role = action.payload.role;
+            state.teacherId = action.payload.teacherId;
+            state.designation = action.payload.designation;
+            state.gender = action.payload.gender;
+            state.isHOD = action.payload.isHOD;
+            state.section = action.payload.section;
+            state.classRollNumber = action.payload.classRollNumber;
+            state.collegeId = action.payload.collegeId;
+            state.branch = action.payload.branch;
         }
     }
 });

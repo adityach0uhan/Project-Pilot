@@ -17,7 +17,11 @@ import { toast } from 'sonner';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
 
-export default function CreateTeamDialog() {
+export default function CreateTeamDialog({
+    getTeamInfo
+}: {
+    getTeamInfo: any;
+}) {
     const user = useSelector((state: RootState) => state.user);
 
     const [formData, setFormData] = useState({
@@ -52,17 +56,11 @@ export default function CreateTeamDialog() {
                     createdBy: user._id
                 }
             );
-
-            console.log('Group created:', response.data);
-
-            // toast('Event has been created', {
-            //     type: 'success'
-            // });
         } catch (error) {
             console.error('Error creating group:', error);
-            toast.error('Failed to create group');
         } finally {
-            setLoading(false); // End loading state
+            setLoading(false);
+            getTeamInfo();
         }
     };
 

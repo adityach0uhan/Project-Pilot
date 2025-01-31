@@ -3,9 +3,8 @@ import { NextRequest } from 'next/server';
 import jwt from 'jsonwebtoken';
 
 export async function middleware(request: NextRequest) {
-    const token = await request.cookies.get('student_project_manager_token')
-        ?.value;
-    const decodeToken = (await jwt.decode(token!)) as { role?: string };
+    const token = await request.cookies.get('project_pilot_token')?.value;
+    const decodeToken: any = (await jwt.decode(token!)) as { role?: string };
     const currentPath = request.nextUrl.pathname;
     const protectedPaths = currentPath.includes('/dashboard');
 
@@ -19,10 +18,62 @@ export async function middleware(request: NextRequest) {
                         new URL('/dashboard/teacher', request.url)
                     );
                 }
+                if (currentPath.includes('/superadmin')) {
+                    return NextResponse.redirect(
+                        new URL('/dashboard/teacher', request.url)
+                    );
+                }
+                if (currentPath.includes('/college')) {
+                    return NextResponse.redirect(
+                        new URL('/dashboard/teacher', request.url)
+                    );
+                }
             } else if (decodeToken.role === 'student') {
                 if (currentPath.includes('/teacher')) {
                     return NextResponse.redirect(
                         new URL('/dashboard/student', request.url)
+                    );
+                }
+                if (currentPath.includes('/college')) {
+                    return NextResponse.redirect(
+                        new URL('/dashboard/student', request.url)
+                    );
+                }
+                if (currentPath.includes('/superadmin')) {
+                    return NextResponse.redirect(
+                        new URL('/dashboard/student', request.url)
+                    );
+                }
+            } else if (decodeToken.role === 'superadmin') {
+                if (currentPath.includes('/teacher')) {
+                    return NextResponse.redirect(
+                        new URL('/dashboard/superadmin', request.url)
+                    );
+                }
+                if (currentPath.includes('/college')) {
+                    return NextResponse.redirect(
+                        new URL('/dashboard/superadmin', request.url)
+                    );
+                }
+                if (currentPath.includes('/student')) {
+                    return NextResponse.redirect(
+                        new URL('/dashboard/superadmin', request.url)
+                    );
+                }
+            } else if (decodeToken.role === 'college') {
+                if (currentPath.includes('/teacher')) {
+                    return NextResponse.redirect(
+                        new URL('/dashboard/college', request.url)
+                    );
+                }
+                if (currentPath.includes('/student')) {
+                    return NextResponse.redirect(
+                        new URL('/dashboard/college', request.url)
+                    );
+                }
+                if (currentPath.includes('/superadmin')) {
+                    return NextResponse.redirect(
+                        new URL('/dashboard/college', request.url)
                     );
                 }
             }
@@ -39,6 +90,14 @@ export async function middleware(request: NextRequest) {
             } else if (decodeToken.role === 'student') {
                 return NextResponse.redirect(
                     new URL('/dashboard/student', request.url)
+                );
+            } else if (decodeToken.role === 'college') {
+                return NextResponse.redirect(
+                    new URL('/dashboard/college', request.url)
+                );
+            } else if (decodeToken.role === 'superadmin') {
+                return NextResponse.redirect(
+                    new URL('/dashboard/superadmin', request.url)
                 );
             }
         }

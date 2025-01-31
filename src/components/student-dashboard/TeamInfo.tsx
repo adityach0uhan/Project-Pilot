@@ -5,9 +5,6 @@ import { Button } from '@/components/ui/button';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
-import { Label } from '../ui/label';
-import { Input } from '../ui/input';
-import { PlusCircledIcon } from '@radix-ui/react-icons';
 import JoinAndCreateTeam from './JoinAndCreateTeam';
 import PendingRequest from './PendingRequest';
 
@@ -36,28 +33,25 @@ const TeamInfo: React.FC = () => {
     const user = useSelector((state: RootState) => state.user);
     const [teamExists, setTeamExists] = useState<boolean>(false);
     const [groupData, setGroupData] = useState<GroupData | null>(null);
-
-    useEffect(() => {
-        console.log('TOOl KIT Data', user._id);
-        async function getTeamInfo() {
-            try {
-                const resp = await axios.post(
-                    'http://localhost:4000/group/groupInfo',
-                    {
-                        userId: user._id
-                    }
-                );
-                if (resp.data.success) {
-                    setGroupData(resp.data.groupData);
-                    setTeamExists(true);
-                } else {
-                    setTeamExists(false);
+    async function getTeamInfo() {
+        try {
+            const resp = await axios.post(
+                'http://localhost:4000/group/groupInfo',
+                {
+                    userId: user._id
                 }
-            } catch (error: any) {
+            );
+            if (resp.data.success) {
+                setGroupData(resp.data.groupData);
+                setTeamExists(true);
+            } else {
                 setTeamExists(false);
             }
+        } catch (error: any) {
+            setTeamExists(false);
         }
-
+    }
+    useEffect(() => {
         getTeamInfo();
     }, []);
 
@@ -77,27 +71,58 @@ const TeamInfo: React.FC = () => {
                             <div
                                 key={member._id}
                                 className='flex items-center justify-between gap-2 p-1'>
-                                <Avatar>
-                                    <AvatarImage
-                                        src={`https://api.dicebear.com/6.x/initials/svg?seed=${member.name}`}
-                                        alt={`@${member.name}`}
-                                    />
-                                    <AvatarFallback>
-                                        {member.name[0]}
-                                    </AvatarFallback>
-                                </Avatar>
-                                <div className='flex flex-col gap-1'>
-                                    <p>{member.name}</p>
-                                    <p className='text-xs'>{member.email}</p>
+                                <div className='flex items-center gap-2'>
+                                    <Avatar>
+                                        <AvatarImage
+                                            src={`https://api.dicebear.com/6.x/initials/svg?seed=${member.name}`}
+                                            alt={`@${member.name}`}
+                                        />
+                                        <AvatarFallback>
+                                            {member.name[0]}
+                                        </AvatarFallback>
+                                    </Avatar>
+                                    <div className='flex flex-col gap-1'>
+                                        <p>{member.name}</p>
+                                        <p className='text-xs'>
+                                            {member.email}
+                                        </p>
+                                    </div>
                                 </div>
-                                <Button className='w-20 h-8'>Action</Button>
+                                {groupData.groupleader._id === user._id &&
+                                user._id !== member._id ? (
+                                    <Button className='w-20 h-8'>Remove</Button>
+                                ) : (
+                                    <>
+                                        {member._id ===
+                                            groupData.groupleader._id && (
+                                            <Button
+                                                disabled={true}
+                                                variant={'destructive'}
+                                                className='text-sm  '>
+                                                leader
+                                            </Button>
+                                        )}
+                                    </>
+                                )}
                             </div>
                         ))}
                     </div>
-                    <PendingRequest groupData={groupData} />
+                    {groupData.groupleader._id === user._id ? (
+                        <PendingRequest
+                            groupData={groupData}
+                            getTeamInfo={getTeamInfo}
+                        />
+                    ) : (
+                        <div className='text-xs text-red-500 w-full p-3 text-start text-wrap'>
+                            <h4>
+                                Only group Leader can see/accept/reject requests
+                            </h4>
+                            <h4>and kick out members</h4>
+                        </div>
+                    )}
                 </div>
             ) : (
-                <JoinAndCreateTeam />
+                <JoinAndCreateTeam getTeamInfo={getTeamInfo} />
             )}
         </>
     );

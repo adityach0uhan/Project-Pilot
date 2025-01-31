@@ -1,7 +1,6 @@
 'use client';
 
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
-
 interface NoopStorageReturnType {
     getItem: (_key: any) => Promise<null>;
     setItem: (_key: any, value: any) => Promise<any>;

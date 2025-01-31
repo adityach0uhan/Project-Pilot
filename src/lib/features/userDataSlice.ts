@@ -5,18 +5,19 @@ export interface userSlice {
     _id: string;
     name: string;
     email: string;
-    profilePic: string;
-    department: string;
-    semester: number;
+    profilePic?: string;
+    department?: string;
+    semester?: number;
     role: string;
-    branch: string;
-    classRollNumber: string;
-    gender: string;
-    section: string;
-    collegeId: string;
-    teacherId: string;
-    designation: string;
-    isHOD: boolean;
+    branch?: string;
+    classRollNumber?: string;
+    gender?: string;
+    section?: string;
+    collegeId?: string;
+    teacherId?: string;
+    designation?: string;
+    isHOD?: boolean;
+    collegeName?: string;
 }
 const initialState: userSlice = {
     _id: '',
@@ -33,7 +34,8 @@ const initialState: userSlice = {
     gender: '',
     isHOD: false,
     designation: '',
-    teacherId: ''
+    teacherId: '',
+    collegeName: ''
 };
 
 export const userSlice = createSlice({
@@ -56,10 +58,14 @@ export const userSlice = createSlice({
             state.classRollNumber = action.payload.classRollNumber;
             state.collegeId = action.payload.collegeId;
             state.branch = action.payload.branch;
+            state.collegeName = action.payload.collegeName;
+        },
+        logout: (state) => {
+            return initialState;
         }
     }
 });
 
-export const { addCurrentUserData } = userSlice.actions;
+export const { addCurrentUserData, logout } = userSlice.actions;
 
 export default userSlice.reducer;

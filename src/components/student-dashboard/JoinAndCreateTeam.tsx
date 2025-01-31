@@ -6,9 +6,11 @@ import { useState } from 'react';
 import CreateTeamDialog from './CreateTeamDialog';
 import axios from 'axios';
 import { toast } from 'sonner';
-type Props = {};
+type Props = {
+    getTeamInfo: any;
+};
 
-const JoinAndCreateTeam = (props: Props) => {
+const JoinAndCreateTeam = ({ getTeamInfo }) => {
     const user = useSelector((state: RootState) => state.user);
     const [inviteCode, setInviteCode] = useState('');
     const [loading, setLoading] = useState(false);
@@ -29,6 +31,7 @@ const JoinAndCreateTeam = (props: Props) => {
             setInviteCode('');
             toast.error('Something went wrong');
         } finally {
+            getTeamInfo();
             setInviteCode('');
             setLoading(false);
         }
@@ -39,7 +42,7 @@ const JoinAndCreateTeam = (props: Props) => {
             <div className='w-96 h-72 flex flex-col justify-evenly shadow-lg border-zinc-200 border-[1px] rounded-xl m-2 p-3'>
                 <div className='flex flex-col gap-2'>
                     Create a Group
-                    <CreateTeamDialog />
+                    <CreateTeamDialog getTeamInfo={getTeamInfo} />
                 </div>
                 <div className='flex flex-col gap-2'>
                     Join a Group

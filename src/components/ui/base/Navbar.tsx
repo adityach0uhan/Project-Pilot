@@ -8,26 +8,12 @@ import {
     SheetTitle,
     SheetTrigger
 } from '@/components/ui/sheet';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Image from 'next/image';
 import Footer from './Footer';
-import { RootState } from '@/lib/store';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuPortal,
-    DropdownMenuSeparator,
-    DropdownMenuShortcut,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
-    DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
+import { persistor, RootState } from '@/lib/store';
+import { logout } from '@/lib/features/userDataSlice';
+import ProfileButton from './ProfileButton';
 const Navbar = () => {
     const user = useSelector((state: RootState) => state.user);
 
@@ -52,41 +38,7 @@ const Navbar = () => {
                 {!user._id && !user.email && (
                     <Link href='/auth/register'>Register</Link>
                 )}
-                {user._id && user.email && (
-                    <DropdownMenu>
-                        <DropdownMenuTrigger className='border-none hover:cursor-pointer outline-none'>
-                            <Avatar>
-                                <AvatarImage src='https://github.com/shadcn.png' />
-                                <AvatarFallback>{user.name}</AvatarFallback>
-                            </Avatar>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent className='w-64 m-2'>
-                            <DropdownMenuLabel>
-                                My Account Info
-                            </DropdownMenuLabel>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>
-                                Name : {user.name}
-                            </DropdownMenuItem>{' '}
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>
-                                Email : {user.email}
-                            </DropdownMenuItem>{' '}
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>
-                                Semester : {user.semester}
-                            </DropdownMenuItem>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>
-                                Department : {user.department}
-                            </DropdownMenuItem>{' '}
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>
-                                Role : {user.role}
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                )}
+                {user._id && user.email && <ProfileButton />}
             </div>
             <div className='md:hidden text-right'>
                 <Sheet>
@@ -106,21 +58,20 @@ const Navbar = () => {
                             <SheetDescription>
                                 <span className='flex h-96 w-full flex-col justify-between  '>
                                     <span className='flex flex-col items-center gap-3 text-lg hover:cursor-pointer'>
-                                        <Link
-                                            className='text-start  w-full'
-                                            href='/'>
-                                            Home
-                                        </Link>
-                                        <Link
-                                            className='text-start  w-full'
-                                            href='/auth/login'>
-                                            Login
-                                        </Link>
-                                        <Link
-                                            className='text-start  w-full'
-                                            href='/auth/register'>
-                                            Register
-                                        </Link>
+                                        <Link href='/'>Home</Link>
+                                        {!user._id && !user.email && (
+                                            <Link href='/auth/login'>
+                                                Login
+                                            </Link>
+                                        )}
+                                        {!user._id && !user.email && (
+                                            <Link href='/auth/register'>
+                                                Register
+                                            </Link>
+                                        )}
+                                        {user._id && user.email && (
+                                            <ProfileButton />
+                                        )}
                                     </span>
                                     <Footer />
                                 </span>

@@ -39,25 +39,27 @@ export default function CreateTeamDialog({
     const handleSubmit = async () => {
         const { groupName, groupNumber, semester } = formData;
         if (!groupName || !groupNumber || !semester) {
-            // toast.error('All fields are required!');
+            alert('All fields are required!');
             return;
         }
-
+        //  name, groupNumber, members, createdBy, groupleader, semester, collegeId;
         setLoading(true);
         try {
             const response = await axios.post(
-                'http://localhost:4000/group/create',
+                `http://localhost:4000/api/v1/${user.collegeId}/group/create`,
                 {
                     name: groupName,
-                    groupNumber: Number(groupNumber),
+                    groupNumber: groupNumber,
                     members: [user._id],
                     groupleader: user._id,
-                    semester: Number(semester),
-                    createdBy: user._id
+                    createdBy: user._id,
+                    semester: semester,
+                    collegeId: user.collegeId
                 }
             );
+            toast.success(response.data.message);
         } catch (error) {
-            console.error('Error creating group:', error);
+            console.log('Error creating group:', error);
         } finally {
             setLoading(false);
             getTeamInfo();
@@ -100,7 +102,7 @@ export default function CreateTeamDialog({
                             value={formData.groupNumber}
                             onChange={handleInputChange}
                             placeholder='Enter group number'
-                            type='number'
+                            type='text'
                             className='col-span-3'
                         />
                     </div>
@@ -115,7 +117,7 @@ export default function CreateTeamDialog({
                             value={formData.semester}
                             onChange={handleInputChange}
                             placeholder='Enter semester'
-                            type='number'
+                            type='text'
                             className='col-span-3'
                         />
                     </div>

@@ -31,12 +31,13 @@ interface GroupData {
 
 const TeamInfo: React.FC = () => {
     const user = useSelector((state: RootState) => state.user);
+
     const [teamExists, setTeamExists] = useState<boolean>(false);
     const [groupData, setGroupData] = useState<GroupData | null>(null);
     async function getTeamInfo() {
         try {
             const resp = await axios.post(
-                'http://localhost:4000/group/groupInfo',
+                `http://localhost:4000/api/v1/${user.collegeId}/group/groupInfo`,
                 {
                     userId: user._id
                 }

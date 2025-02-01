@@ -24,22 +24,81 @@ import StudentLoginTab from '@/components/StudentLoginTab';
 type Props = {};
 
 const CollegeLoginTab = (props: Props) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [passkey, setPasskey] = useState('');
+    const router = useRouter();
+    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
+    const handelSubmit = async () => {
+        try {
+            const resp = await axios.post(
+                'http://localhost:4000/api/v1/auth/college/login',
+                {
+                    email,
+                    password,
+                    passkey
+                },
+                {
+                    withCredentials: true
+                }
+            );
+            if (resp.data.success) {
+                toast.success(resp.data.message);
+                await dispatch(
+                    addCurrentUserData({
+                        _id: resp.data.data._id,
+                        name: resp.data.data.collegeName,
+                        email: resp.data.data.email,
+                        role: resp.data.data.role,
+                        collegeId: resp.data.data.collegeId,
+                        collegeLocation: resp.data.data.collegeLocation
+                    })
+                );
+            }
+            router.push('/dashboard/college');
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <Card className='min-h-80'>
             <CardTitle className='px-6 pt-6 pb-3'>College</CardTitle>
             <CardContent className=''>
                 <div className=''>
                     <Label htmlFor='admin-email'>Email</Label>
-                    <Input id='admin-email' type='email' />
+                    <Input
+                        id='admin-email'
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        type='email'
+                    />
                 </div>
                 <div className=''>
                     <Label htmlFor='admin-password'>Password</Label>
-                    <Input id='admin-password' type='password' />
+                    <Input
+                        id='admin-password'
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        type='password'
+                    />
+                </div>
+                <div className=''>
+                    <Label htmlFor='admin-passkey'>Passkey</Label>
+                    <Input
+                        id='admin-passkey'
+                        value={passkey}
+                        onChange={(e) => setPasskey(e.target.value)}
+                        type='password'
+                    />
                 </div>
             </CardContent>
             <CardFooter>
-                <Button type='button' aria-label='Login'>
-                    Login
+                <Button type='button' onClick={handelSubmit} aria-label='Login'>
+                    {loading ? 'Loading...' : 'Login'}
                 </Button>
             </CardFooter>
         </Card>

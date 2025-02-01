@@ -6,6 +6,7 @@ export interface userSlice {
     name: string;
     email: string;
     profilePic?: string;
+    collegeLocation?: string;
     department?: string;
     semester?: number;
     role: string;
@@ -35,7 +36,8 @@ const initialState: userSlice = {
     isHOD: false,
     designation: '',
     teacherId: '',
-    collegeName: ''
+    collegeName: '',
+    collegeLocation: ''
 };
 
 export const userSlice = createSlice({

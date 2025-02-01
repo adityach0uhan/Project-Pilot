@@ -23,15 +23,17 @@ const ProfileButton = () => {
 
     const logoutHandler = async () => {
         try {
-            const resp = await axios.post(
+            const resp = await axios.get(
                 'http://localhost:4000/api/v1/auth/logout',
                 { withCredentials: true }
             );
-            console.log('Logout response:', resp);
-            await dispatch(logout());
-            await persistor.purge().then(() => {
-                router.push('/');
-            });
+            console.log('Logout response:', resp.data);
+
+            dispatch(logout());
+
+            const responseofPuerge = await persistor.purge();
+            console.log('Purge response:', responseofPuerge);
+            router.push('/');
         } catch (error) {
             console.log('Logout failed:', error);
         }

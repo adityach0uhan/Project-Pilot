@@ -38,17 +38,21 @@ const StudentLoginTab = (props: Props) => {
                 },
                 { withCredentials: true }
             );
-
-            if (response.data.success && response.data.status == 200) {
+            console.log('Student Login successful:', response.data);
+            if (response.data.success) {
                 dispatch(
                     addCurrentUserData({
                         _id: response.data.data._id,
                         name: response.data.data.name,
                         email: response.data.data.email,
                         profilePic: response.data.data.profilePic,
-                        department: response.data.data.department,
                         semester: response.data.data.semester,
-                        role: response.data.data.role
+                        role: response.data.data.role,
+                        collegeId: response.data.data.collegeId,
+                        section: response.data.data.section,
+                        branch: response.data.data.branch,
+                        gender: response.data.data.gender,
+                        classRollNumber: response.data.data.classRollNumber
                     })
                 );
                 toast.success('Login successful', {

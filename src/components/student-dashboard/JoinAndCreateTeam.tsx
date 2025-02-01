@@ -10,7 +10,7 @@ type Props = {
     getTeamInfo: any;
 };
 
-const JoinAndCreateTeam = ({ getTeamInfo }) => {
+const JoinAndCreateTeam = ({ getTeamInfo }: any) => {
     const user = useSelector((state: RootState) => state.user);
     const [inviteCode, setInviteCode] = useState('');
     const [loading, setLoading] = useState(false);
@@ -22,18 +22,17 @@ const JoinAndCreateTeam = ({ getTeamInfo }) => {
             }
             setLoading(true);
             const resp = await axios.post(
-                `http://localhost:4000/group/requesttojoin/${inviteCode}`,
+                `http://localhost:4000/api/v1/${user.collegeId}/group/requesttojoin/${inviteCode}`,
                 { userId: user._id }
             );
-            setInviteCode('');
+            console.log(resp.data);
             toast.message(resp.data.message);
         } catch (error) {
-            setInviteCode('');
             toast.error('Something went wrong');
         } finally {
-            getTeamInfo();
             setInviteCode('');
             setLoading(false);
+            getTeamInfo();
         }
     };
 

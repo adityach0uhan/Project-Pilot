@@ -7,7 +7,10 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
 import JoinAndCreateTeam from './JoinAndCreateTeam';
 import PendingRequest from './PendingRequest';
-
+import RemoveFromTeam from './RemoveFromTeam';
+import { Separator } from '../ui/separator';
+import { useDispatch } from 'react-redux';
+import { addCurrentUserData } from '@/lib/features/userDataSlice';
 interface Member {
     _id: string;
     name: string;
@@ -30,6 +33,7 @@ interface GroupData {
 }
 
 const TeamInfo: React.FC = () => {
+    const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user);
 
     const [teamExists, setTeamExists] = useState<boolean>(false);
@@ -44,6 +48,11 @@ const TeamInfo: React.FC = () => {
             );
             if (resp.data.success) {
                 setGroupData(resp.data.groupData);
+                dispatch(
+                    addCurrentUserData({
+                        groupNumber: resp.data.groupData.groupNumber
+                    })
+                );
                 setTeamExists(true);
             } else {
                 setTeamExists(false);
@@ -59,54 +68,69 @@ const TeamInfo: React.FC = () => {
     return (
         <>
             {teamExists && groupData ? (
-                <div className='min-w-96 max-h-72 flex flex-col justify-evenly shadow-lg border-zinc-200 border-[1px] rounded-xl m-2 p-3'>
-                    <h1 className='text-xl p-2 font-bold'>Team Information</h1>
-                    <div className='text-base flex items-center justify-between p-2'>
-                        <p>{groupData.name}</p>
-                        <p>
-                            Team Code: <span>{groupData.inviteCode}</span>
-                        </p>
-                    </div>
-                    <div className='text-sm flex flex-col gap-2 mb-2 p-2'>
-                        {groupData.members.map((member) => (
-                            <div
-                                key={member._id}
-                                className='flex items-center justify-between gap-2 p-1'>
-                                <div className='flex items-center gap-2'>
-                                    <Avatar>
-                                        <AvatarImage
-                                            src={`https://api.dicebear.com/6.x/initials/svg?seed=${member.name}`}
-                                            alt={`@${member.name}`}
-                                        />
-                                        <AvatarFallback>
-                                            {member.name[0]}
-                                        </AvatarFallback>
-                                    </Avatar>
-                                    <div className='flex flex-col gap-1'>
-                                        <p>{member.name}</p>
-                                        <p className='text-xs'>
-                                            {member.email}
-                                        </p>
+                <div className='min-w-96 bg-white max-h-96 min-h-96 flex flex-col justify-between shadow-lg rounded-md  p-3'>
+                    <div className='text-base flex flex-col items- justify-between p-2'>
+                        <h1 className='text-xl flex items-center justify-between p-2 font-bold'>
+                            Group Number{' '}
+                            <span className='text-red-600'>
+                                {groupData.groupNumber}
+                            </span>
+                        </h1>
+                        <div className='flex items-center justify-between w-full mb-4  px-2 gap-2'>
+                            <p>{groupData.name}</p>
+                            <p>
+                                Invite Code: <span>{groupData.inviteCode}</span>
+                            </p>
+                        </div>
+                        <Separator />
+
+                        <div className='text-sm flex flex-col gap-2 mb-2 p-2'>
+                            {groupData.members.map((member) => (
+                                <div
+                                    key={member._id}
+                                    className='flex items-center justify-between gap-2 p-1'>
+                                    <div className='flex items-center gap-2'>
+                                        <Avatar>
+                                            <AvatarImage
+                                                src={`https://api.dicebear.com/6.x/initials/svg?seed=${member.name}`}
+                                                alt={`@${member.name}`}
+                                            />
+                                            <AvatarFallback>
+                                                {member.name[0]}
+                                            </AvatarFallback>
+                                        </Avatar>
+                                        <div className='flex flex-col gap-1'>
+                                            <p>{member.name}</p>
+                                            <p className='text-xs'>
+                                                {member.email}
+                                            </p>
+                                        </div>
                                     </div>
+                                    {groupData.groupleader._id === user._id &&
+                                    user._id !== member._id ? (
+                                        <RemoveFromTeam
+                                            id={member._id}
+                                            name={member.name}
+                                            groupId={groupData._id}
+                                            collegeId={user.collegeId}
+                                            getTeamInfo={getTeamInfo}
+                                        />
+                                    ) : (
+                                        <>
+                                            {member._id ===
+                                                groupData.groupleader._id && (
+                                                <Button
+                                                    disabled={true}
+                                                    variant={'destructive'}
+                                                    className='text-sm  '>
+                                                    leader
+                                                </Button>
+                                            )}
+                                        </>
+                                    )}
                                 </div>
-                                {groupData.groupleader._id === user._id &&
-                                user._id !== member._id ? (
-                                    <Button className='w-20 h-8'>Remove</Button>
-                                ) : (
-                                    <>
-                                        {member._id ===
-                                            groupData.groupleader._id && (
-                                            <Button
-                                                disabled={true}
-                                                variant={'destructive'}
-                                                className='text-sm  '>
-                                                leader
-                                            </Button>
-                                        )}
-                                    </>
-                                )}
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                     {groupData.groupleader._id === user._id ? (
                         <PendingRequest

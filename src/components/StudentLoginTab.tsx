@@ -52,7 +52,8 @@ const StudentLoginTab = (props: Props) => {
                         section: response.data.data.section,
                         branch: response.data.data.branch,
                         gender: response.data.data.gender,
-                        classRollNumber: response.data.data.classRollNumber
+                        classRollNumber: response.data.data.classRollNumber,
+                        groupNumber: response.data.data.groupNumber
                     })
                 );
                 toast.success('Login successful', {

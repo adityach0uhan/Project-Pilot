@@ -42,11 +42,10 @@ export default function CreateTeamDialog({
             alert('All fields are required!');
             return;
         }
-        //  name, groupNumber, members, createdBy, groupleader, semester, collegeId;
         setLoading(true);
         try {
             const response = await axios.post(
-                `http://localhost:4000/api/v1/${user.collegeId}/group/create`,
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${user.collegeId}/group/create`,
                 {
                     name: groupName,
                     groupNumber: groupNumber,

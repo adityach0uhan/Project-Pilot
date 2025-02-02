@@ -40,7 +40,7 @@ export function AddNewCollege({ refresh, setRefresh }: any) {
         try {
             setLoading(true);
             const response = await axios.post(
-                'http://localhost:4000/api/v1/auth/college/register',
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/college/register`,
                 data
             );
             if (response.data.success) {

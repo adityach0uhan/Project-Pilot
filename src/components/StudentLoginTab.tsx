@@ -28,10 +28,9 @@ const StudentLoginTab = (props: Props) => {
     const dispatch = useDispatch();
     const handleStudentLogin: any = async (): Promise<void> => {
         try {
-            const apiEndpoint = process.env.NEXT_PUBLIC_API_ENDPOINT || '';
             setLoading(true);
             const response: AxiosResponse<any> = await axios.post(
-                `${apiEndpoint}/auth/student/login`,
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/student/login`,
                 {
                     email: studentEmail,
                     password: studentPassword

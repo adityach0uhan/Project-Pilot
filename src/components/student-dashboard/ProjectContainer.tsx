@@ -26,7 +26,7 @@ const ProjectContainer = () => {
         setLoading(true);
         try {
             const response = await axios.post(
-                `http://localhost:4000/api/v1/${user.collegeId}/projects/getProjectByGroupNumber`,
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${user.collegeId}/projects/getProjectByGroupNumber`,
                 {
                     groupNumber: user.groupNumber
                 }

@@ -38,7 +38,7 @@ export default function CreateProjectDialog({ setRefresh, refresh }: any) {
             setLoading(true);
             console.log('Sending this data to the server', projectData);
             const resp = await axios.post(
-                `http://localhost:4000/api/v1/${user.collegeId}/projects/create`,
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${user.collegeId}/projects/create`,
                 projectData
             );
             if (resp.data.success) {

@@ -34,7 +34,7 @@ const CollegeLoginTab = (props: Props) => {
     const handelSubmit = async () => {
         try {
             const resp = await axios.post(
-                'http://localhost:4000/api/v1/auth/college/login',
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/college/login`,
                 {
                     email,
                     password,

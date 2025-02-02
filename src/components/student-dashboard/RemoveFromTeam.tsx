@@ -20,7 +20,7 @@ const RemoveFromTeam = ({ id, name, groupId, collegeId, getTeamInfo }: any) => {
         setLoading(true);
         try {
             const resp = await axios.put(
-                `http://localhost:4000/api/v1/${collegeId}/group/${groupId}/kick/${id}`,
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${collegeId}/group/${groupId}/kick/${id}`,
                 {}
             );
             console.log(resp.data);

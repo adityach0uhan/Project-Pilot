@@ -19,7 +19,7 @@ const AllTeacherList = (props: Props) => {
             console.log(user.collegeId);
             setLoading(true);
             const response = await axios.get(
-                `http://localhost:4000/api/v1/college/allteachers/${user.collegeId}`
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/college/allteachers/${user.collegeId}`
             );
             setTeacher(response.data.teachers);
         } catch (error) {

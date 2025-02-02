@@ -17,7 +17,7 @@ const page = () => {
         setLoading(true);
         try {
             const response = await axios.get(
-                `http://localhost:4000/api/v1/college/student/${_id}`
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/college/student/${_id}`
             );
             setStudent(response.data.student);
             console.log(response.data.student);

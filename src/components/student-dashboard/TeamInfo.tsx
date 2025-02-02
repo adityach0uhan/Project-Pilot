@@ -41,7 +41,7 @@ const TeamInfo: React.FC = () => {
     async function getTeamInfo() {
         try {
             const resp = await axios.post(
-                `http://localhost:4000/api/v1/${user.collegeId}/group/groupInfo`,
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${user.collegeId}/group/groupInfo`,
                 {
                     userId: user._id
                 }

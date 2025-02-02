@@ -23,7 +23,6 @@ const TeacherLoginTab = (props: Props) => {
 
     const dispatch = useDispatch();
     const handelTeacherLogin: any = async (): Promise<void> => {
-        const apiEndpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
         const teacherSecretCode = process.env.NEXT_PUBLIC_TEACHER_SECRET;
         try {
             setLoading(true);
@@ -36,7 +35,7 @@ const TeacherLoginTab = (props: Props) => {
             }
             setSecretError('Right Secret Code');
             const response = await axios.post(
-                `${apiEndpoint}/auth/teacher/login`,
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/teacher/login`,
                 {
                     email: teacherEmail,
                     password: teacherPassword

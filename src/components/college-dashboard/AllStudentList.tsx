@@ -19,7 +19,7 @@ const AllStudentList = (props: Props) => {
             console.log(user.collegeId);
             setLoading(true);
             const response = await axios.get(
-                `http://localhost:4000/api/v1/college/allstudents/${user.collegeId}`
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/college/allstudents/${user.collegeId}`
             );
             setStudents(response.data.students);
         } catch (error) {

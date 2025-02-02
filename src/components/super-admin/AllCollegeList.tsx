@@ -17,7 +17,7 @@ const AllCollegeList = () => {
         setLoading(true);
         try {
             const resp = await axios.get(
-                'http://localhost:4000/api/v1/superadmin/getallcollegelist'
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/superadmin/getallcollegelist`
             );
             setColleges(resp.data.data);
         } catch (error) {

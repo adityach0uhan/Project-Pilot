@@ -29,7 +29,7 @@ const SupAdminLoginTab = (props: Props) => {
         try {
             setloading(true);
             const response = await axios.post(
-                'http://localhost:4000/api/v1/auth/super-admin/login',
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/super-admin/login`,
                 {
                     email,
                     password

@@ -31,7 +31,7 @@ const PendingRequest: React.FC<PendingRequestProps> = ({
         try {
             setLoading(true);
             const resp = await axios.post(
-                'http://localhost:4000/group/managejoinrequests',
+                `http://localhost:4000/api/v1/${user.collegeId}/group/managejoinrequests`,
                 {
                     userId: userId,
                     action: action,

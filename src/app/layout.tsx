@@ -26,7 +26,7 @@ export default function RootLayout({
         <html lang='en'>
             <body
                 suppressHydrationWarning
-                className={`bg-white ${font.className}  antialiased flex flex-col items-center justify-between min-h-screen`}>
+                className={`bg-[#fbfbfb] ${font.className}  antialiased flex flex-col items-center justify-between min-h-screen`}>
                 <StoreProvider>
                     <Navbar />
                     <main className='flex-grow'>{children}</main>

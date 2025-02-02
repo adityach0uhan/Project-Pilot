@@ -101,9 +101,3 @@ const SupAdminLoginTab = (props: Props) => {
 };
 
 export default SupAdminLoginTab;
-function dispatch(arg0: {
-    payload: import('@/lib/features/userDataSlice').userSlice;
-    type: 'user/addCurrentUserData';
-}) {
-    throw new Error('Function not implemented.');
-}

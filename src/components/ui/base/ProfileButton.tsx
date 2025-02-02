@@ -139,6 +139,14 @@ const ProfileButton = () => {
                             </DropdownMenuShortcut>
                         </DropdownMenuItem>
                     )}
+                    {user.groupNumber && (
+                        <DropdownMenuItem>
+                            Group Number
+                            <DropdownMenuShortcut>
+                                {user.groupNumber}
+                            </DropdownMenuShortcut>
+                        </DropdownMenuItem>
+                    )}
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={logoutHandler}>

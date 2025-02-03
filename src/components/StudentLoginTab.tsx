@@ -37,7 +37,6 @@ const StudentLoginTab = (props: Props) => {
                 },
                 { withCredentials: true }
             );
-            console.log('Student Login successful:', response.data);
             if (response.data.success) {
                 dispatch(
                     addCurrentUserData({

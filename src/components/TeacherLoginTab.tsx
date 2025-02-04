@@ -11,6 +11,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { toast } from 'sonner';
 import { useSelector, useDispatch } from 'react-redux';
+import { addCurrentUserData } from '@/lib/features/userDataSlice';
 type Props = {};
 
 const TeacherLoginTab = (props: Props) => {
@@ -42,12 +43,24 @@ const TeacherLoginTab = (props: Props) => {
                 },
                 { withCredentials: true }
             );
-            console.log(response);
-            if (response.data.success && response.data.status == 200) {
+            if (response.data.success) {
                 toast.success('Login successful', {
                     position: 'bottom-center',
                     duration: 2000
                 });
+                dispatch(
+                    addCurrentUserData({
+                        _id: response.data.data._id,
+                        name: response.data.data.name,
+                        email: response.data.data.email,
+                        profilePic: response.data.data.profilePic,
+                        semester: response.data.data.semester,
+                        role: response.data.data.role,
+                        collegeId: response.data.data.collegeId,
+                        branch: response.data.data.branch,
+                        gender: response.data.data.gender
+                    })
+                );
                 router.push('/dashboard/teacher');
             }
             setLoading(false);

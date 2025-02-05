@@ -8,7 +8,6 @@ import { useState } from 'react';
 
 const Page = () => {
     const [activeTab, setActiveTab]: any = useState('Student');
-
     return (
         <div className='w-dvw flex flex-col p-4 items-center justify-evenly'>
             <div className='w-full flex gap-3 p-1'>
@@ -23,13 +22,14 @@ const Page = () => {
                                     ? 'bg-blue-400 text-black'
                                     : ''
                             }`}>
-                            {tab.charAt(0).toUpperCase() + tab.slice(1)} {tab}
+                            {tab.charAt(0).toUpperCase() + tab.slice(1)}{' '}
+                            Management
                         </Button>
                     )
                 )}
             </div>
             <div>
-                <span className='text-blue-500'>
+                <span className='bg-blue-500'>
                     {activeTab === 'Student' && <StudentManagement />}
                     {activeTab === 'Project' && <ProjectManagementTab />}
                     {activeTab === 'Team' && <TeamManagementTab />}

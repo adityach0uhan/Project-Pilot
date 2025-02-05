@@ -57,6 +57,11 @@ const DetailsDialog = ({ data }: any) => {
                                 <strong>College ID:</strong> {data.collegeId}
                             </span>
                         )}
+                        {data.groupNumber && (
+                            <span>
+                                <strong>Group NO:</strong> {data.groupNumber}
+                            </span>
+                        )}
                     </DialogDescription>
                 </DialogHeader>
             </DialogContent>

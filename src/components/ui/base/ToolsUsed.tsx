@@ -93,14 +93,6 @@ const ToolsUsed = () => {
                             height={40}
                         />
                     </li>
-                    <li className='flex items-center'>
-                        <Image
-                            src='/tools/socket.io.svg'
-                            alt='Socket.io Logo'
-                            width={90}
-                            height={40}
-                        />
-                    </li>
                 </ul>
             </div>
         </div>

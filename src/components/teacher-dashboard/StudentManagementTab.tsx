@@ -6,6 +6,15 @@ import { userSlice } from '@/lib/features/userDataSlice';
 import { RootState } from '@/lib/store';
 import { toast } from 'sonner';
 import DetailsDialog from './DetailsDialog';
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow
+} from '@/components/ui/table';
 
 const StudentManagement = () => {
     const user = useSelector((state: RootState) => state.user);
@@ -43,21 +52,40 @@ const StudentManagement = () => {
                 </div>
                 <div className='p-2 '>Personal TODO</div>
             </div>
-            <div className='min-w-96 w-full m-2 p-4'>
-                STUDENT LIST
-                {studentList.map((student: any) => (
-                    <div
-                        key={student._id}
-                        className='flex items-center justify-between p-2'>
-                        <div>{student.name}</div>
-                        <div>{student.email}</div>
-                        <div>{student.classRollNumber}</div>
-                        <div>{student.section}</div>
-                        <div>
-                            <DetailsDialog data={student} />
-                        </div>
-                    </div>
-                ))}
+            <div className='min-w-96 w-full m-2 p-4 text-black'>
+                <Table>
+                    <TableCaption>STUDENT LIST</TableCaption>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead className='w-[100px]'>Name</TableHead>
+                            <TableHead>Email</TableHead>
+                            <TableHead>Roll Num</TableHead>
+                            <TableHead className='text-right'>
+                                Section
+                            </TableHead>
+                            <TableHead className='text-right'>
+                                More Details
+                            </TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {studentList.map((student: any) => (
+                            <TableRow key={student._id}>
+                                <TableCell className='font-medium'>
+                                    {student.name}
+                                </TableCell>
+                                <TableCell>{student.email}</TableCell>
+                                <TableCell>{student.classRollNumber}</TableCell>
+                                <TableCell className='text-right'>
+                                    {student.section}
+                                </TableCell>
+                                <TableCell className='text-right'>
+                                    <DetailsDialog data={student} />
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
             </div>
         </div>
     );

@@ -5,6 +5,15 @@ import { useEffect, useState } from 'react';
 import { RootState } from '@/lib/store';
 import { toast } from 'sonner';
 import DetailsDialog from './DetailsDialog';
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow
+} from '@/components/ui/table';
 
 const ProjectManagementTab = () => {
     const user = useSelector((state: RootState) => state.user);
@@ -31,21 +40,37 @@ const ProjectManagementTab = () => {
     }, []);
     return (
         <div className='w-dvw flex items-center justify-between '>
-            <div className='min-w-96 w-full m-2 p-4'>
-                {project.map((item: any) => (
-                    <div
-                        key={item._id}
-                        className='flex items-center justify-between p-2'>
-                        <div>{item.projectName}</div>
-                        <div>{item.description}</div>
-                        <div>{item.branch}</div>
-                        <div>{item.semester}</div>
-                        <div>
-                            <DetailsDialog data={item} />
-                        </div>
-                    </div>
-                ))}
-            </div>
+            <Table className='w-3/4 mx-auto mt-6'>
+                <TableCaption>List of All Project </TableCaption>
+                <TableHeader>
+                    <TableRow className='text-black font-extrabold'>
+                        <TableHead className='w-[200px]'>
+                            Project Name
+                        </TableHead>
+                        <TableHead>Description</TableHead>
+                        <TableHead>Branch</TableHead>
+                        <TableHead className='text-right'>Semester</TableHead>
+                        <TableHead className='text-right'>Details</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {project.map((item: any) => (
+                        <TableRow key={item._id}>
+                            <TableCell className='font-medium'>
+                                {item.projectName}
+                            </TableCell>
+                            <TableCell>{item.description}</TableCell>
+                            <TableCell>{item.branch}</TableCell>
+                            <TableCell className='text-right'>
+                                {item.semester}
+                            </TableCell>
+                            <TableCell className='text-right'>
+                                <DetailsDialog data={item} />
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
         </div>
     );
 };

@@ -1,13 +1,13 @@
 import React from 'react';
 import Image from 'next/image';
+// import { RiArchiveLine } from 'react-icons/ri';
 
 const Features = () => {
     const Features = [
         {
-            icon: '/Features/team.svg',
-            title: 'Team Creation & Management',
-            description:
-                'Students can create teams, invite members, or join via an invite code.'
+            icon: '/Features/col.svg',
+            title: 'MultiCollege ',
+            description: 'Multiple Colleges Can be Registered.'
         },
         {
             icon: '/Features/manage.svg',
@@ -16,29 +16,29 @@ const Features = () => {
                 'Students can create projects, assign tasks, and track progress.'
         },
         {
-            icon: '/Features/task.svg',
-            title: 'Task Creation & Management',
+            icon: '/Features/team.svg',
+            title: 'Team Creation and Invitations',
             description:
-                'Students can create tasks, assign them to team members, and track progress.'
+                'Students can create teams and invite other students to join.'
         },
         {
-            icon: '/Features/file.svg',
+            icon: '/Features/fil.svg',
             title: 'File Upload & Management',
             description:
-                'Students can upload files and share them with team members.'
+                'Students can upload files and share them with team members and teachers for evaluation.'
         },
 
         {
-            icon: '/Features/dashboard.svg',
+            icon: '/Features/com.svg',
             title: 'Teacher Dashboard',
             description:
-                'Teachers can view all student projects, tasks, and progress.'
+                'Teachers can view all student projects, tasks, and progress and create notice.'
         },
         {
-            icon: '/Features/dashboard.svg',
+            icon: '/Features/com.svg',
             title: 'Student Dashboard',
             description:
-                'Students can view their projects, tasks, and progress.'
+                'Students can view their projects, tasks, and notices from teachers.'
         }
     ];
     return (

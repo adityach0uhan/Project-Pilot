@@ -60,7 +60,10 @@ const AllCollegeList = () => {
                                 <div
                                     className='my-2 place-self-center'
                                     key={index}>
-                                    <CollegeCard collegeData={college} />
+                                    <CollegeCard
+                                        setRefresh={setRefresh}
+                                        collegeData={college}
+                                    />
                                 </div>
                             ))
                         ) : (

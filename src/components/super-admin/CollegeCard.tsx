@@ -9,7 +9,9 @@ import {
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Pencil1Icon, TrashIcon } from '@radix-ui/react-icons';
-export function CollegeCard({ collegeData }: any) {
+import DeleteCollege from './DeleteCollege';
+import UpdateCollege from './UpdateCollege';
+export function CollegeCard({ collegeData, setRefresh }: any) {
     return (
         <Card className='w-[350px]'>
             <CardHeader>
@@ -29,14 +31,20 @@ export function CollegeCard({ collegeData }: any) {
                 </div>
             </CardContent>
             <CardFooter className='flex justify-between'>
-                <Button variant='outline'>
-                    Delete
+                <div className='flex gap-2 border border-red-500 p-2 rounded-md'>
+                    <DeleteCollege
+                        setRefresh={setRefresh}
+                        collegeData={collegeData}
+                    />
                     <TrashIcon className='w-6 h-6 text-red-500 ' />
-                </Button>
-                <Button variant='outline'>
-                    Update
+                </div>
+                <div className='flex gap-2 border border-red-500 p-2 rounded-md'>
+                    <UpdateCollege
+                        collegeData={collegeData}
+                        setRefresh={setRefresh}
+                    />
                     <Pencil1Icon className='w-6 h-6 text-yellow-500' />
-                </Button>
+                </div>
             </CardFooter>
         </Card>
     );

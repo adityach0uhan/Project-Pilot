@@ -3,17 +3,18 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import Loader from '@/components/ui/base/Loader';
 import { Skeleton } from '@/components/ui/skeleton';
+import DeleteTeacher from '@/components/college-dashboard/DeleteTeacher';
+import UpdateTeacher from '@/components/college-dashboard/UpdateTeacher';
 
 const page = () => {
     const { _id } = useParams();
     const [teacher, setTeacher]: any = useState({});
     const [loading, setLoading] = useState(true);
+    const [refresh, setRefresh] = useState(false);
 
     const fetchTeacherById = async () => {
         setLoading(true);
@@ -22,6 +23,7 @@ const page = () => {
                 `http://localhost:4000/api/v1/college/teacher/${_id}`
             );
             setTeacher(response.data.teacher);
+            console.log(response.data.teacher);
         } catch (error) {
             console.log(error);
         } finally {
@@ -31,8 +33,8 @@ const page = () => {
     useEffect(() => {
         setTimeout(() => {
             fetchTeacherById();
-        }, 3000);
-    }, []);
+        }, 1000);
+    }, [refresh]);
     if (loading) {
         return (
             <Card className='w-full min-w-[600px] shadow-lg rounded-2xl p-4 bg-white'>
@@ -95,33 +97,40 @@ const page = () => {
                 </div>
                 <Separator />
                 <div className='flex px-4 py-1 items-center gap-2 justify-between text uppercase'>
-                    <Label>Class Roll Number</Label>
+                    <Label>Designation</Label>
                     <p>{teacher.designation}</p>
                 </div>
                 <Separator />
                 <div className='flex px-4 py-1 items-center gap-2 justify-between text uppercase'>
-                    <Label>University Roll Number</Label>
+                    <Label>Gender</Label>
                     <p>{teacher.gender}</p>
                 </div>
                 <Separator />
                 <div className='flex px-4 py-1 items-center gap-2 justify-between text uppercase'>
-                    <Label>Semester</Label>
+                    <Label>ID</Label>
                     <p>{teacher.teacherId}</p>
                 </div>
                 <Separator />
                 <div className='flex px-4 py-1 items-center gap-2 justify-between text uppercase'>
-                    <Label>Gender</Label>
+                    <Label>CollegeName</Label>
                     <p>{teacher.collegeName}</p>
                 </div>
                 <Separator />
                 <div className='flex px-4 py-1 items-center gap-2 justify-between text uppercase'>
-                    <Label>Section</Label>
+                    <Label>Is Hod</Label>
                     <p>{teacher.isHOD}</p>
                 </div>
             </CardContent>
             <div className='flex gap-2 items-center justify-center'>
-                <Button className='w-1/2 bg-green-600'>Edit</Button>
-                <Button className='w-1/2 bg-red-500'>Delete</Button>
+                <span className='w-1/2 bg-green-600'>
+                    <UpdateTeacher
+                        teacherData={teacher}
+                        setRefresh={setRefresh}
+                    />
+                </span>
+                <span className='w-1/2 bg-red-500'>
+                    <DeleteTeacher teacherId={teacher._id} />
+                </span>
             </div>
         </Card>
     );

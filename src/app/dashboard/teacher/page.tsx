@@ -1,8 +1,7 @@
 'use client';
 import NoticeTab from '@/components/teacher-dashboard/NoticeTab';
-import ProjectManagementTab from '@/components/teacher-dashboard/ProjectManagementTab';
+import ProjectAndGroup from '@/components/teacher-dashboard/ProjectAndGroup';
 import StudentManagement from '@/components/teacher-dashboard/StudentManagementTab';
-import TeamManagementTab from '@/components/teacher-dashboard/TeamManagementTab';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 const Page = () => {
@@ -11,7 +10,7 @@ const Page = () => {
     return (
         <div className='w-dvw flex flex-col p-4 items-center justify-evenly'>
             <div className='w-full flex gap-3 p-1'>
-                {['Student', 'Project', 'Team', 'Notice'].map((tab) => (
+                {['Student', 'Project & Group', 'Notice'].map((tab) => (
                     <Button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
@@ -26,8 +25,7 @@ const Page = () => {
             <div>
                 <span className='bg-blue-500'>
                     {activeTab === 'Student' && <StudentManagement />}
-                    {activeTab === 'Project' && <ProjectManagementTab />}
-                    {activeTab === 'Team' && <TeamManagementTab />}
+                    {activeTab === 'Project & Group' && <ProjectAndGroup />}
                     {activeTab === 'Notice' && <NoticeTab />}
                 </span>
             </div>

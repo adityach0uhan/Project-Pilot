@@ -18,6 +18,8 @@ const page = () => {
                 <div className='text-sm uppercase px-3'>{user.section}</div>
                 <div className='text-sm  px-3'>{user.semester} ' Sem</div>
                 <div className='text-sm  px-3'>{user.email}</div>
+                <div className='text-sm  px-3'>Team ID{user.teamId}</div>
+
                 <div className='flex items-center gap-4'>
                     <Button className='border-green-600' variant={'outline'}>
                         Change Password

@@ -45,7 +45,7 @@ const TeacherRegistrationPage = () => {
         const { confirmPassword, ...userData } = data;
         try {
             const response = await axios.post(
-                `${apiEndpoint}/auth/teacher/register`,
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/teacher/register`,
                 userData
             );
             if (response.data.success) {

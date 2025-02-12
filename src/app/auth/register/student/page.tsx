@@ -1,177 +1,181 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import { studentSchema } from '@/zod/student.schema';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-type Inputs = {
-    name: string;
-    profilePic: string;
-    email: string;
-    department: string;
-    password: string;
-    semester: number;
-    classRollNumber: string;
-    enrollmentNumber: string;
-    universityRollNumber: string;
-    confirmPassword: string;
-};
-const page = () => {
+
+const Page = () => {
     const apiEndpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
     const router = useRouter();
-
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: '',
+        profilePic: '',
+        department: '',
+        classRollNumber: '',
+        universityRollNumber: '',
+        collegeId: '',
+        semester: '',
+        branch: '',
+        section: '',
+        gender: ''
+    });
 
-    const {
-        register,
-        handleSubmit,
-        watch,
-        formState: { errors }
-    } = useForm<Inputs>({ resolver: zodResolver(studentSchema) });
+    const handleChange = (e: any) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
-    const registerUser = async (data: Inputs) => {
+    const registerUser = async (e: any) => {
+        e.preventDefault();
         setLoading(true);
-        if (data.password !== data.confirmPassword) {
-            toast.error('Passwords do not match');
-            setLoading(false);
-            return;
-        }
-        const { confirmPassword, ...userData } = data;
         try {
             const response = await axios.post(
                 `${apiEndpoint}/auth/student/register`,
-                userData
+                formData
             );
             if (response.data.success) {
-                setLoading(false);
                 toast.success('Student registered successfully', {
                     description: 'Login with your credentials'
                 });
                 router.push('/auth/login');
             } else {
-                setLoading(false);
                 toast.error(response.data.message);
             }
         } catch (error) {
             toast.error('Internal server error');
-            setLoading(false);
             console.log(error);
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
-        <div className='w-screen min-h-auto flex bg-white flex-col items-center  justify-center p-2'>
-            <h1 className='  w-full text-center text-3xl my-3'>
-                Student Registration
-            </h1>
-            <form
-                className='w-auto py-2  shadow-2xl rounded-2xl  justify-center flex gap-y-2 gap-x-6  h-full items-start flex-wrap '
-                onSubmit={handleSubmit(registerUser)}>
-                <div className='w-72 h-20 flex justify-evenly flex-col'>
-                    <Label htmlFor='name'>Name</Label>
-                    <Input {...register('name')} />
-                    <p className='text-sm text-red-600'>
-                        {errors.name?.message}
-                    </p>
-                </div>
-                <div className='w-72 h-20 flex justify-evenly flex-col'>
-                    <Label htmlFor='profilePic'>Profile Picture</Label>
-                    <Input {...register('profilePic')} />
-                    <p className='text-sm  text-red-600'>
-                        {errors.profilePic?.message}
-                    </p>
-                </div>
-                <div className='w-72 h-20 flex justify-evenly flex-col'>
-                    <Label htmlFor='email'>Email</Label>
-                    <Input {...register('email')} />
-                    <p className='text-sm text-red-600'>
-                        {' '}
-                        {errors.email?.message}
-                    </p>
-                </div>
-                <div className='w-72 h-20 flex justify-evenly flex-col'>
-                    <Label htmlFor='department'>Department</Label>
-                    <Input {...register('department')} />
-                    <p className='text-sm text-red-600'>
-                        {errors.department?.message}
-                    </p>
-                </div>
-                <div className='w-72 h-20 flex justify-evenly flex-col'>
-                    <Label htmlFor='password'>Password</Label>
-                    <Input type='password' {...register('password')} />
-                    <p className='text-sm text-red-600'>
-                        {errors.password?.message}
-                    </p>
-                </div>
-                <div className='w-72 h-20 flex justify-evenly flex-col'>
-                    <Label htmlFor='confirmPassword'>Confirm Password</Label>
-                    <Input type='password' {...register('confirmPassword')} />
-                    <p className='text-sm text-red-600'>
-                        {errors.confirmPassword?.message}{' '}
+        <div className='min-h-screen w-dvw bg-gradient-to-br from-blue-50 to-indigo-50 py-8'>
+            <div className='mx-auto max-w-full px-4'>
+                <div className='mb-8 text-center'>
+                    <h1 className='text-4xl font-bold text-gray-900'>
+                        Student Registration
+                    </h1>
+                    <p className='mt-2 text-gray-600'>
+                        Create your student account to get started
                     </p>
                 </div>
 
-                <div className='w-72 h-20 flex justify-evenly flex-col'>
-                    <Label htmlFor='semester'>Semester</Label>
-                    <Input type='text' {...register('semester')} />
-                    <p className='text-sm text-red-600'>
-                        {errors.semester?.message}
-                    </p>
-                </div>
-                <div className='w-72 h-20 flex justify-evenly flex-col'>
-                    <Label htmlFor='classRollNumber'>Class Roll Number</Label>
-                    <Input {...register('classRollNumber')} />
-                    <p className='text-sm text-red-600'>
-                        {errors.classRollNumber?.message}
-                    </p>
-                </div>
-                <div className='w-72 h-20 flex justify-evenly flex-col'>
-                    <Label htmlFor='enrollmentNumber'>Enrollment Number</Label>
-                    <Input {...register('enrollmentNumber')} />
-                    <p className='text-sm text-red-600'>
-                        {errors.enrollmentNumber?.message}
-                    </p>
-                </div>
-                <div className='w-72 h-20 flex justify-evenly flex-col'>
-                    <Label htmlFor='universityRollNumber'>
-                        University Roll Number
-                    </Label>
-                    <Input {...register('universityRollNumber')} />
-                    <p className='text-sm text-red-600'>
-                        {errors.universityRollNumber?.message}
-                    </p>
-                </div>
-                <div className='w-72 h-20 flex justify-evenly flex-col'>
-                    <Label htmlFor=''>Make sure the info is right</Label>
-                    <Button
-                        type='submit'
-                        className='bg-[#3C71E2] w-full text-black hover:bg-[#98b3ee]'
-                        variant={'secondary'}>
-                        {loading ? 'wait...' : 'Register'}
-                    </Button>
-                    <p className='text-sm  text-red-600'></p>
-                </div>
-                <div className='w-72 h-20 flex justify-evenly flex-col'>
-                    <Label htmlFor=''> Already have an account? </Label>
-                    <Link href='/auth/login'>
+                <form
+                    onSubmit={registerUser}
+                    className='mx-auto rounded-xl bg-white p-8 shadow-lg transition-all duration-300 hover:shadow-xl'>
+                    <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
+                        {Object.keys(formData).map((field) => (
+                            <div key={field} className='w-72 space-y-2'>
+                                <Label
+                                    htmlFor={field}
+                                    className='text-sm font-medium text-gray-700'>
+                                    {field
+                                        .replace(/([A-Z])/g, ' $1')
+                                        .replace(/^./, (str) =>
+                                            str.toUpperCase()
+                                        )}
+                                </Label>
+                                {field === 'semester' ? (
+                                    <select
+                                        name={field}
+                                        value={formData[field]}
+                                        onChange={handleChange}
+                                        className='w-full rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200'>
+                                        <option value=''>
+                                            Select Semester
+                                        </option>
+                                        {[1, 2, 3, 4, 5, 6, 7, 8].map((sem) => (
+                                            <option key={sem} value={sem}>
+                                                {sem}
+                                            </option>
+                                        ))}
+                                    </select>
+                                ) : field === 'branch' ? (
+                                    <select
+                                        name={field}
+                                        value={formData[field]}
+                                        onChange={handleChange}
+                                        className='w-full rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200'>
+                                        <option value=''>Select Branch</option>
+                                        {[
+                                            'CSE',
+                                            'IT',
+                                            'ECE',
+                                            'EEE',
+                                            'Mechanical',
+                                            'Civil'
+                                        ].map((branch) => (
+                                            <option key={branch} value={branch}>
+                                                {branch}
+                                            </option>
+                                        ))}
+                                    </select>
+                                ) : field === 'gender' ? (
+                                    <select
+                                        name={field}
+                                        value={formData[field]}
+                                        onChange={handleChange}
+                                        className='w-full rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200'>
+                                        <option value=''>Select Gender</option>
+                                        {['Male', 'Female', 'Other'].map(
+                                            (gender) => (
+                                                <option
+                                                    key={gender}
+                                                    value={gender}>
+                                                    {gender}
+                                                </option>
+                                            )
+                                        )}
+                                    </select>
+                                ) : (
+                                    <Input
+                                        type={
+                                            field === 'password'
+                                                ? 'password'
+                                                : 'text'
+                                        }
+                                        name={field}
+                                        value={formData[field]}
+                                        onChange={handleChange}
+                                        className='w-full rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
+                                    />
+                                )}
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className='mt-8 flex flex-col items-center gap-4'>
                         <Button
-                            className=' border-2 text-sm text-[#3C71E2]'
-                            variant={'link'}>
-                            Login
+                            type='submit'
+                            className='w-full max-w-md transform rounded-lg bg-blue-600 px-6 py-3 text-white transition-all duration-200 hover:bg-blue-700 hover:shadow-lg focus:ring-2 focus:ring-blue-300 disabled:opacity-50'
+                            disabled={loading}>
+                            {loading ? 'Processing...' : 'Register'}
                         </Button>
-                    </Link>
-                    <p className='text-sm  text-red-600'></p>
-                </div>
-            </form>
+
+                        <div className='text-center'>
+                            <span className='text-sm text-gray-600'>
+                                Already have an account?{' '}
+                            </span>
+                            <Link href='/auth/login'>
+                                <Button
+                                    variant='link'
+                                    className='text-sm font-medium text-blue-600 hover:text-blue-800'>
+                                    Sign in
+                                </Button>
+                            </Link>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };
 
-export default page;
+export default Page;

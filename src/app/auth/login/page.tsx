@@ -35,7 +35,7 @@ export default function page() {
                     </TabsList>
                     <TabsContent value='student'>
                         <StudentLoginTab />
-                    </TabsContent>{' '}
+                    </TabsContent>
                     <TabsContent value='teacher'>
                         <TeacherLoginTab />
                     </TabsContent>

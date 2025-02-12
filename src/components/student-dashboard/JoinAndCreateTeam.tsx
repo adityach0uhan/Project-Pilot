@@ -22,7 +22,7 @@ const JoinAndCreateTeam = ({ getTeamInfo }: any) => {
             }
             setLoading(true);
             const resp = await axios.post(
-                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${user.collegeId}/group/requesttojoin/${inviteCode}`,
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/group/requesttojoin/${inviteCode}`,
                 { userId: user._id }
             );
             console.log(resp.data);

@@ -45,7 +45,7 @@ export default function CreateTeamDialog({
         setLoading(true);
         try {
             const response = await axios.post(
-                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${user.collegeId}/group/create`,
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/group/create`,
                 {
                     name: groupName,
                     groupNumber: groupNumber,
@@ -53,7 +53,8 @@ export default function CreateTeamDialog({
                     groupleader: user._id,
                     createdBy: user._id,
                     semester: semester,
-                    collegeId: user.collegeId
+                    collegeId: user.collegeId,
+                    branch: user.branch
                 }
             );
             toast.success(response.data.message);

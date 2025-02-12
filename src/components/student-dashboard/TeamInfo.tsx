@@ -35,22 +35,26 @@ interface GroupData {
 const TeamInfo: React.FC = () => {
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user);
-
     const [teamExists, setTeamExists] = useState<boolean>(false);
     const [groupData, setGroupData] = useState<GroupData | null>(null);
     async function getTeamInfo() {
         try {
             const resp = await axios.post(
-                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${user.collegeId}/group/groupInfo`,
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/group/groupInfo`,
                 {
                     userId: user._id
                 }
+            );
+
+            console.log(
+                `the team info url is ${process.env.NEXT_PUBLIC_API_ENDPOINT}/group/groupInfo `
             );
             if (resp.data.success) {
                 setGroupData(resp.data.groupData);
                 dispatch(
                     addCurrentUserData({
-                        groupNumber: resp.data.groupData.groupNumber
+                        groupNumber: resp.data.groupData.groupNumber,
+                        teamId: resp.data.groupData.teamId
                     })
                 );
                 setTeamExists(true);
@@ -71,7 +75,7 @@ const TeamInfo: React.FC = () => {
                 <div className='min-w-96 bg-white max-h-96 min-h-96 flex flex-col justify-between shadow-lg rounded-md  p-3'>
                     <div className='text-base flex flex-col items- justify-between p-2'>
                         <h1 className='text-xl flex items-center justify-between p-2 font-bold'>
-                            Group Number{' '}
+                            Group Number {user.teamId}
                             <span className='text-red-600'>
                                 {groupData.groupNumber}
                             </span>

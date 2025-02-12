@@ -139,6 +139,14 @@ const ProfileButton = () => {
                             </DropdownMenuShortcut>
                         </DropdownMenuItem>
                     )}
+                    {user.teamId && (
+                        <DropdownMenuItem>
+                            Department
+                            <DropdownMenuShortcut>
+                                {user.teamId}
+                            </DropdownMenuShortcut>
+                        </DropdownMenuItem>
+                    )}
                     {user.groupNumber && (
                         <DropdownMenuItem>
                             Group Number

@@ -75,7 +75,7 @@ const NoticeTab = () => {
 
     return (
         <div className='w-dvw p-4 flex gap-3 '>
-            <div className='w-96 gap-4 bg-white shadow-md p-3 flex flex-col'>
+            <div className='min-w-96 max-h-72 gap-4 bg-white shadow-md p-3 flex flex-col'>
                 <h1>New Notice</h1>
                 <div className='flex flex-col gap-3'>
                     <Input
@@ -128,8 +128,7 @@ const NoticeTab = () => {
                     </Button>
                 </div>
             </div>
-            <div className='flex flex-col gap-2 p-2 '>
-                <div>All Notices</div>
+            <div className='flex flex-wrap gap-2 p-2 '>
                 {notices.map((notice: any) => (
                     <div
                         key={notice._id}

@@ -37,6 +37,7 @@ const StudentLoginTab = (props: Props) => {
                 },
                 { withCredentials: true }
             );
+
             if (response.data.success) {
                 dispatch(
                     addCurrentUserData({
@@ -51,7 +52,8 @@ const StudentLoginTab = (props: Props) => {
                         branch: response.data.data.branch,
                         gender: response.data.data.gender,
                         classRollNumber: response.data.data.classRollNumber,
-                        groupNumber: response.data.data.groupNumber
+                        groupNumber: response.data.data.groupNumber,
+                        teamId: response.data.data.teamId || ''
                     })
                 );
                 toast.success('Login successful', {
@@ -60,7 +62,6 @@ const StudentLoginTab = (props: Props) => {
                 });
                 router.push('/dashboard/student');
             }
-            console.log('Login successful:', response.data);
             setLoading(false);
             setstudentPassword('');
             setStudentEmail('');

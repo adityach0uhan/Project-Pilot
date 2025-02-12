@@ -8,6 +8,8 @@ import { toast } from 'sonner';
 import { Button } from '../ui/button';
 // import { MdDelete } from 'react-icons/md';
 import { Pencil1Icon, TrashIcon } from '@radix-ui/react-icons';
+import UpdateProject from './UpdateProject';
+import DeleteProject from './DeleteProject';
 
 const ProjectContainer = () => {
     const user = useSelector((state: RootState) => state.user);
@@ -25,21 +27,25 @@ const ProjectContainer = () => {
     const fetchProjectDetails = async () => {
         setLoading(true);
         try {
-            const response = await axios.post(
-                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${user.collegeId}/projects/getProjectByGroupNumber`,
-                {
-                    groupNumber: user.groupNumber
-                }
+            const response = await axios.get(
+                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/projects/getProjectByGroupId/${user.teamId}`
+            );
+            console.log(
+                `the url is : ${process.env.NEXT_PUBLIC_API_ENDPOINT}/projects/getProjectByGroupId/${user.teamId}`
+            );
+            console.log(
+                'response from get project by user id',
+                response.data.projects
             );
             if (response.data.success) {
                 setProjectDetails({
-                    projectName: response.data.project.projectName,
-                    description: response.data.project.description,
-                    status: response.data.project.status,
-                    branch: response.data.project.branch,
-                    semester: response.data.project.semester,
-                    groupNumber: response.data.project.groupNumber,
-                    _id: response.data.project._id
+                    projectName: response.data.projects[0].projectName,
+                    description: response.data.projects[0].description,
+                    status: response.data.projects[0].status,
+                    branch: response.data.projects[0].branch,
+                    semester: response.data.projects[0].semester,
+                    groupNumber: response.data.projects[0].groupNumber,
+                    _id: response.data.projects[0]._id
                 });
                 toast.success('Project details fetched successfully');
             } else {
@@ -55,7 +61,7 @@ const ProjectContainer = () => {
 
     useEffect(() => {
         fetchProjectDetails();
-    }, [refresh]);
+    }, [refresh, user.teamId]);
     return (
         <div className='w-[550px] p-4 rounded-lg bg-white shadow-md'>
             {projectDetails._id && projectDetails.groupNumber ? (
@@ -98,16 +104,19 @@ const ProjectContainer = () => {
                                 </Button>
                             </div>
                             <div className='w-1/4 rounded-md  p-2 flex flex-col gap-2'>
-                                <Button
-                                    variant={'outline'}
-                                    className='w-full text-bold bg-yellow-300 text-black '>
-                                    Update <Pencil1Icon />
-                                </Button>
+                                <span className='w-full p-2 rounded-md text-bold bg-yellow-300 text-black '>
+                                    <UpdateProject
+                                        projectDetails={projectDetails}
+                                        setRefresh={setRefresh}
+                                    />
+                                </span>
                                 <Button
                                     variant={'destructive'}
                                     className='w-full'>
-                                    Delete
-                                    <TrashIcon />
+                                    <DeleteProject
+                                        _id={projectDetails._id}
+                                        setRefresh={setRefresh}
+                                    />
                                 </Button>
                             </div>
                         </div>

@@ -19,6 +19,7 @@ export interface UserState {
     designation?: string;
     isHOD?: boolean;
     groupNumber?: string;
+    teamId: string;
     collegeName?: string;
 }
 
@@ -40,7 +41,8 @@ const initialState: UserState = {
     teacherId: '',
     collegeName: '',
     collegeLocation: '',
-    groupNumber: ''
+    groupNumber: '',
+    teamId: ''
 };
 
 export const userSlice = createSlice({
